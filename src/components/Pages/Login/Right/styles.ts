@@ -38,7 +38,7 @@ export const Container = styled.div`
   }
 
   a {
-    color: ${colors.purple80};
+    color: ${colors.purple800};
   }
 `;
 
@@ -74,16 +74,16 @@ export const Login = styled.form`
   gap: 30px;
 
   button {
-    color: ${colors.purple100};
-    background: ${colors.purple0};
+    color: ${colors.purple1000};
+    background: ${colors.purple100};
   }
 
   .mantine-Button-root:hover {
-    background: ${colors.purple20};
+    background: ${colors.purple300};
   }
 
   button:hover {
-    background: ${colors.purple20};
+    background: ${colors.purple300};
   }
 
   @media (max-width: 1200px) {
