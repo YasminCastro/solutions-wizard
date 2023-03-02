@@ -26,16 +26,30 @@ export const Container = styled.div`
 
   display: flex;
   flex-direction: column;
-  gap: 300px;
+  gap: 200px;
   align-items: center;
 `;
 
 export const Title = styled.div`
   margin-top: 126px;
-  div {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h1 {
+    font-size: 58px;
+  }
+
+  @media (max-width: 1300px) {
+    h1 {
+      font-size: 48px;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    h1 {
+      font-size: 38px;
+    }
   }
 `;
 
@@ -63,6 +77,7 @@ export const Login = styled.form`
   @media (max-width: 1200px) {
     max-width: 400px;
   }
+
   @media (max-width: 900px) {
     max-width: 300px;
   }

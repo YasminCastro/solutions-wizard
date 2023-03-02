@@ -12,11 +12,8 @@ const RightSection: React.FC = () => {
     <Wrapper>
       <Container>
         <Title>
-          <div>
-            <FaHatWizard size={36} color={colors.purple100} />
-            <h1>Solutions Wizard</h1>
-          </div>
-          <h2>Bem vinde!</h2>
+          <FaHatWizard size={48} color={colors.purple100} />
+          <h1>Solutions Wizard</h1>
         </Title>
         <Login>
           <PasswordInput
