@@ -28,6 +28,15 @@ const RightSection: React.FC = () => {
           />
           <Button variant="light">Entrar</Button>
         </Login>
+        <p>
+          Developer by{" "}
+          <a
+            href="https://www.linkedin.com/in/yasmin-castro-b579451b8"
+            target="_blank"
+          >
+            Yasmin Castro
+          </a>
+        </p>
       </Container>
     </Wrapper>
   );

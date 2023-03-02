@@ -14,6 +14,8 @@ export const colors = {
   purple20: "#f5dfe8",
   purple10: "#f8e6ec",
   purple0: "#faecf0",
+
+  grey50: "#707070",
 };
 
 export default createGlobalStyle`
@@ -21,6 +23,11 @@ export default createGlobalStyle`
     margin: 0;
     padding: 0;
     font-family: 'Roboto', sans-serif;
+  }
+  
+  a{
+    color: inherit;
+    text-decoration: none;  
   }
  
 `;

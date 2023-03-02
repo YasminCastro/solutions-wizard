@@ -28,6 +28,18 @@ export const Container = styled.div`
   flex-direction: column;
   gap: 200px;
   align-items: center;
+
+  p {
+    margin: 16px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: ${colors.grey50};
+  }
+
+  a {
+    color: ${colors.purple80};
+  }
 `;
 
 export const Title = styled.div`
