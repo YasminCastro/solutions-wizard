@@ -6,18 +6,12 @@ const LeftSection: React.FC = () => {
   return (
     <Wrapper>
       <Container>
-        {/* <Image
-          src="/login-image.png"
-          width={2112}
-          height={1024}
+        <Image
+          src="/wizard-cut.png"
+          width={1040}
+          height={1040}
           alt="Magin robot wizard"
-        /> */}
-        {/* <Image
-          src="/teste.png"
-          width={1024}
-          height={1024}
-          alt="Magin robot wizard"
-        /> */}
+        />
       </Container>
     </Wrapper>
   );

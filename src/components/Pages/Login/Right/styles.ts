@@ -6,6 +6,11 @@ export const Wrapper = styled.section`
   height: 100vh;
   right: 0px;
   position: absolute;
+  top: 0px;
+
+  @media (max-width: 1500px) {
+    width: 50%;
+  }
 `;
 
 export const Container = styled.div`
