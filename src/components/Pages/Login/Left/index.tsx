@@ -7,7 +7,7 @@ const LeftSection: React.FC = () => {
     <Wrapper>
       <Container>
         <Image
-          src="/wizard-cut.png"
+          src="/wizard.png"
           quality={100}
           width={1040}
           height={1040}

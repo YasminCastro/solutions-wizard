@@ -34,7 +34,7 @@ const RightSection: React.FC = () => {
             href="https://www.linkedin.com/in/yasmin-castro-b579451b8"
             target="_blank"
           >
-            Yasmin Castro
+            Yas Castro
           </a>
         </p>
       </Container>
