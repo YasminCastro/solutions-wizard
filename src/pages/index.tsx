@@ -9,7 +9,7 @@ export default function Home() {
       <Layout>
         <PageWrapper>
           <PageContainer>
-            <LeftSection />
+            {/* <LeftSection /> */}
             <RightSection />
           </PageContainer>
         </PageWrapper>
