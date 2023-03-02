@@ -8,9 +8,10 @@ const LeftSection: React.FC = () => {
       <Container>
         <Image
           src="/wizard-cut.png"
+          quality={100}
           width={1040}
           height={1040}
-          alt="Magin robot wizard"
+          alt="Uma mistura de robô com mago sorrindo, com seu bicho de estimação"
         />
       </Container>
     </Wrapper>

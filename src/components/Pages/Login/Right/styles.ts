@@ -8,6 +8,8 @@ export const Wrapper = styled.section`
   position: absolute;
   top: 0px;
 
+  overflow: hidden;
+
   @media (max-width: 1500px) {
     width: 50%;
   }
@@ -56,5 +58,12 @@ export const Login = styled.form`
 
   button:hover {
     background: ${colors.purple20};
+  }
+
+  @media (max-width: 1200px) {
+    max-width: 400px;
+  }
+  @media (max-width: 900px) {
+    max-width: 300px;
   }
 `;
