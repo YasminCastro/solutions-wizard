@@ -3,7 +3,7 @@ import SEO from "@/components/Global/SEO";
 import TopBar from "@/components/Pages/Dashboard/TopBar";
 import { PageContainer, PageWrapper } from "@/styles/Page";
 import SolutionsPanel from "@/components/Pages/Dashboard/SolutionsPanel";
-import { GetServerSideProps, NextPage } from "next";
+import { GetServerSideProps, GetStaticProps, NextPage } from "next";
 // import prisma from "@/lib/prisma";
 import { PrismaClient, Software } from "@prisma/client";
 import { env } from "process";
@@ -30,7 +30,7 @@ const Dashboard: NextPage<DasboardInterface> = ({ softwares }) => {
 
 export default Dashboard;
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const prisma = new PrismaClient();
   console.log("PRISMA", prisma);
   const softwares = await prisma.software.findMany();
