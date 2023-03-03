@@ -6,6 +6,7 @@ import SolutionsPanel from "@/components/Pages/Dashboard/SolutionsPanel";
 import { GetServerSideProps, NextPage } from "next";
 // import prisma from "@/lib/prisma";
 import { PrismaClient, Software } from "@prisma/client";
+import { env } from "process";
 
 interface DasboardInterface {
   softwares: Software[];
@@ -31,6 +32,7 @@ export default Dashboard;
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const prisma = new PrismaClient();
+  console.log("PRISMA", prisma);
   const softwares = await prisma.software.findMany();
 
   return {
