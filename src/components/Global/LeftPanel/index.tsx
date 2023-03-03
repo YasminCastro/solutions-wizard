@@ -1,9 +1,11 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Software as SoftwareTypes } from "@prisma/client";
+
 import { NavLink } from "@mantine/core";
 import { FaHatWizard } from "react-icons/fa";
 import { AiOutlineAppstoreAdd, AiFillBug } from "react-icons/ai";
 import { RxDot } from "react-icons/rx";
-import axios from "axios";
-import { Software as SoftwareTypes } from "@prisma/client";
 
 import {
   OptionsButtons,
@@ -13,14 +15,6 @@ import {
   Wrapper,
 } from "./styles";
 import { colors } from "@/styles/GlobalStyles";
-import { useEffect, useState } from "react";
-
-const data = [
-  { label: "Veeam" },
-  {
-    label: "Security",
-  },
-];
 
 const LeftPanel: React.FC = () => {
   const [active, setActive] = useState(0);
