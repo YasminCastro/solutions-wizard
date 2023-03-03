@@ -58,7 +58,12 @@ const FiltersSection: React.FC = () => {
                   onChange={setCategoriesValue}
                 >
                   {categoriesData.map((item, index) => (
-                    <Chip size="xs" color="grape" value={item.value}>
+                    <Chip
+                      size="xs"
+                      color="grape"
+                      key={item.value}
+                      value={item.value}
+                    >
                       {item.name}
                     </Chip>
                   ))}
