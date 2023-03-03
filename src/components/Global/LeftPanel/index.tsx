@@ -2,6 +2,8 @@ import { NavLink } from "@mantine/core";
 import { FaHatWizard } from "react-icons/fa";
 import { AiOutlineAppstoreAdd, AiFillBug } from "react-icons/ai";
 import { RxDot } from "react-icons/rx";
+import axios from "axios";
+import { Software as SoftwareTypes } from "@prisma/client";
 
 import {
   OptionsButtons,
@@ -11,7 +13,7 @@ import {
   Wrapper,
 } from "./styles";
 import { colors } from "@/styles/GlobalStyles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const data = [
   { label: "Veeam" },
@@ -22,6 +24,22 @@ const data = [
 
 const LeftPanel: React.FC = () => {
   const [active, setActive] = useState(0);
+  const [softwares, setSoftwares] = useState<SoftwareTypes[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data } = await axios.get<SoftwareTypes[]>(
+          `/api/softwares/find`
+        );
+        setSoftwares(data);
+      } catch (error) {
+        console.error;
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <Wrapper>
@@ -39,14 +57,14 @@ const LeftPanel: React.FC = () => {
       </OptionsButtons>
 
       <SoftwaresOptions>
-        {data.map((item, index) => {
+        {softwares.map((item, index) => {
           return (
             //@ts-ignore
-            <Software key={item.label} active={index === active}>
+            <Software key={item.name} active={index === active}>
               <NavLink
-                key={item.label}
+                key={item.name}
                 variant="subtle"
-                label={item.label}
+                label={item.name}
                 onClick={() => setActive(index)}
                 icon={<RxDot />}
               />

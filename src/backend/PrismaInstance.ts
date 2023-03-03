@@ -4,17 +4,17 @@ const PrismaInstance = (() => {
   let instance: PrismaClient;
 
   async function createInstance() {
-    const prisma = new PrismaClient();
-
-    return prisma;
+    instance = new PrismaClient();
+    return instance;
   }
 
   return {
     getInstance: async function () {
+      console.log("INSTANCE", instance);
       if (!instance) {
-        const createdInstance = await createInstance();
+        instance = await createInstance();
 
-        return createdInstance;
+        return instance;
       }
 
       return instance;
