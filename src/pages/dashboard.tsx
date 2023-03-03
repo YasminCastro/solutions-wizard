@@ -4,9 +4,7 @@ import TopBar from "@/components/Pages/Dashboard/TopBar";
 import { PageContainer, PageWrapper } from "@/styles/Page";
 import SolutionsPanel from "@/components/Pages/Dashboard/SolutionsPanel";
 import { GetServerSideProps, NextPage } from "next";
-// import prisma from "@/lib/prisma";
-import { PrismaClient, Software } from "@prisma/client";
-import { env } from "process";
+import { Software } from "@prisma/client";
 import prisma from "@/lib/prisma";
 
 interface DasboardInterface {
