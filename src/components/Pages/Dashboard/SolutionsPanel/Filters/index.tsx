@@ -75,13 +75,13 @@ const FiltersSection: React.FC = () => {
               value={solutionValue}
               onChange={setSolutionValue}
             >
-              <Chip color="green" size="xs" value="yes">
+              <Chip key="yes" color="green" size="xs" value="yes">
                 Sim
               </Chip>
-              <Chip color="red" size="xs" value="no">
+              <Chip key="no" color="red" size="xs" value="no">
                 Não
               </Chip>
-              <Chip size="xs" value="all">
+              <Chip key="all" size="xs" value="all">
                 Todos
               </Chip>
             </Chip.Group>
