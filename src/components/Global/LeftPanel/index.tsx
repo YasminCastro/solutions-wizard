@@ -16,7 +16,9 @@ import {
 } from "./styles";
 import { colors } from "@/styles/GlobalStyles";
 
-const LeftPanel: React.FC<{ softwares: SoftwareTypes[] }> = ({ softwares }) => {
+const LeftPanel: React.FC<{ softwares?: SoftwareTypes[] }> = ({
+  softwares,
+}) => {
   const [active, setActive] = useState(0);
 
   return (
@@ -35,20 +37,21 @@ const LeftPanel: React.FC<{ softwares: SoftwareTypes[] }> = ({ softwares }) => {
       </OptionsButtons>
 
       <SoftwaresOptions>
-        {softwares.map((item, index) => {
-          return (
-            //@ts-ignore
-            <Software key={item.name} active={index === active}>
-              <NavLink
-                key={item.name}
-                variant="subtle"
-                label={item.name}
-                onClick={() => setActive(index)}
-                icon={<RxDot />}
-              />
-            </Software>
-          );
-        })}
+        {softwares &&
+          softwares.map((item, index) => {
+            return (
+              //@ts-ignore
+              <Software key={item.name} active={index === active}>
+                <NavLink
+                  key={item.name}
+                  variant="subtle"
+                  label={item.name}
+                  onClick={() => setActive(index)}
+                  icon={<RxDot />}
+                />
+              </Software>
+            );
+          })}
       </SoftwaresOptions>
     </Wrapper>
   );

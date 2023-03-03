@@ -7,7 +7,7 @@ import { Software } from "@prisma/client";
 
 interface IProps {
   children: React.ReactNode;
-  softwares: Software[];
+  softwares?: Software[];
 }
 
 const Layout: React.FC<IProps> = ({ children, softwares }): JSX.Element => {
