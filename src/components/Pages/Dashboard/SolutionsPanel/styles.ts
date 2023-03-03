@@ -26,8 +26,6 @@ export const ContentWrapper = styled.section`
   /* height: 100%; */
 `;
 
-export const FiltersSection = styled.div``;
-
 export const TableContainer = styled.div`
   margin-top: 24px;
   overflow-y: auto;

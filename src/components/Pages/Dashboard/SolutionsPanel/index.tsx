@@ -1,15 +1,11 @@
 import { Table } from "@mantine/core";
-import {
-  Container,
-  FiltersSection,
-  TableContainer,
-  ContentWrapper,
-  Wrapper,
-} from "./styles";
+import { Container, TableContainer, ContentWrapper, Wrapper } from "./styles";
 import { FaRegEdit } from "react-icons/fa";
-import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
+import { useState } from "react";
+import FiltersSection from "./Filters";
 
 const SolutionsPanel: React.FC = () => {
+  const [opened, setOpened] = useState(false);
   const elements = [
     {
       id: 1,
@@ -43,11 +39,14 @@ const SolutionsPanel: React.FC = () => {
       <td>{element.dateUpdated}</td>
     </tr>
   ));
+
   return (
     <Wrapper>
       <Container>
         <ContentWrapper>
-          <FiltersSection>VEEAM</FiltersSection>
+          <h1>VEEAM</h1>
+          <FiltersSection />
+
           <TableContainer>
             <Table>
               <thead>
