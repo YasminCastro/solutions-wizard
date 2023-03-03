@@ -51,7 +51,7 @@ const LeftPanel: React.FC<{ softwares?: SoftwareTypes[] }> = ({
                   onClick={() => {
                     setActive(index);
 
-                    router.push({ query: { software: slugify(item.name) } });
+                    router.push({ query: { softwareId: item.id } });
                   }}
                   icon={<RxDot />}
                 />

@@ -5,9 +5,11 @@ import { GoPrimitiveDot } from "react-icons/go";
 import { useState } from "react";
 import FiltersSection from "./Filters";
 import { colors } from "@/styles/GlobalStyles";
+import { useRouter } from "next/router";
 
 const SolutionsPanel: React.FC = () => {
   const [opened, setOpened] = useState(false);
+
   const elements = [
     {
       id: 1,
