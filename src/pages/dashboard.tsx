@@ -1,8 +1,8 @@
 import Layout from "@/components/Global/Layout";
 import SEO from "@/components/Global/SEO";
-import LeftPanel from "@/components/Global/LeftPanel";
 import TopBar from "@/components/Pages/Dashboard/TopBar";
 import { PageContainer, PageWrapper } from "@/styles/Page";
+import SolutionsPanel from "@/components/Pages/Dashboard/SolutionsPanel";
 
 export default function Dashboard() {
   return (
@@ -12,6 +12,7 @@ export default function Dashboard() {
         <PageWrapper>
           <PageContainer>
             <TopBar />
+            <SolutionsPanel />
           </PageContainer>
         </PageWrapper>
       </Layout>

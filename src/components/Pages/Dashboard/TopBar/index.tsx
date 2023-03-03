@@ -4,7 +4,7 @@ import { BsSearch } from "react-icons/bs";
 import { IoLogOutOutline } from "react-icons/io5";
 import { colors } from "@/styles/GlobalStyles";
 
-const RightSection: React.FC = () => {
+const TopBar: React.FC = () => {
   return (
     <Wrapper>
       <Container>
@@ -21,4 +21,4 @@ const RightSection: React.FC = () => {
   );
 };
 
-export default RightSection;
+export default TopBar;

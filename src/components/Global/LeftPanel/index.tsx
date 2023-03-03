@@ -1,6 +1,6 @@
 import { NavLink } from "@mantine/core";
 import { FaHatWizard, FaRegLightbulb } from "react-icons/fa";
-import { AiOutlineAppstoreAdd } from "react-icons/ai";
+import { AiOutlineAppstoreAdd, AiFillBug } from "react-icons/ai";
 import { RxDot } from "react-icons/rx";
 
 import {
@@ -30,6 +30,7 @@ const LeftPanel: React.FC = () => {
         Solutions Wizard
       </Title>
       <OptionsButtons>
+        <NavLink key="problems" label="Novo problema" icon={<AiFillBug />} />
         <NavLink
           key="solution"
           label="Nova solução"
