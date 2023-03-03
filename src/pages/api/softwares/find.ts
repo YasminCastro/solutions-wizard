@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import PrismaInstance from "@/backend/PrismaInstance";
 import { PrismaClient, Software } from "@prisma/client";
 
 export default async function handler(

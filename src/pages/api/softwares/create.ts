@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import PrismaInstance from "@/backend/PrismaInstance";
+import { PrismaClient } from "@prisma/client";
 
 export default async function handler(
   req: NextApiRequest,
@@ -7,7 +7,7 @@ export default async function handler(
 ) {
   try {
     const { name } = req.body;
-    const prisma = await PrismaInstance.getInstance();
+    const prisma = new PrismaClient();
 
     const created = await prisma.software.create({ data: { name } });
 
