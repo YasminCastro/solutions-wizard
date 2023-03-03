@@ -46,7 +46,7 @@ const LeftPanel: React.FC = () => {
         {data.map((item, index) => {
           return (
             //@ts-ignore
-            <Software active={index === active}>
+            <Software key={item.label} active={index === active}>
               <NavLink
                 key={item.label}
                 variant="subtle"
