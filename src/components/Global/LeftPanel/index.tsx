@@ -16,7 +16,6 @@ import {
 } from "./styles";
 import { colors } from "@/styles/GlobalStyles";
 import router from "next/router";
-import slugify from "@/util/slugify";
 
 const LeftPanel: React.FC<{ softwares?: SoftwareTypes[] }> = ({
   softwares,
@@ -35,6 +34,9 @@ const LeftPanel: React.FC<{ softwares?: SoftwareTypes[] }> = ({
           key="software"
           label="Novo software"
           icon={<AiOutlineAppstoreAdd />}
+          onClick={() => {
+            router.push({ pathname: "/software", query: router.query });
+          }}
         />
       </OptionsButtons>
 
