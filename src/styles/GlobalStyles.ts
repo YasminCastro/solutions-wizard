@@ -4,6 +4,8 @@ export const colors = {
   black: "#000000",
   white: " #ffffff",
   lightGrey: "#f5f7fa",
+  grey50: "#707070",
+
   purple1000: "#a30664",
   purple900: "#b83d86",
   purple800: "#cc72a6",
@@ -18,7 +20,8 @@ export const colors = {
   purpleLight50: "#fdf6f8",
   purpleLight70: "#fefbfc",
 
-  grey50: "#707070",
+  mantineTeal: "#20c796",
+  mantineRed: "#fe6b6b",
 };
 
 export default createGlobalStyle`

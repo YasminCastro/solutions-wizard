@@ -1,8 +1,10 @@
 import { Table } from "@mantine/core";
 import { Container, TableContainer, ContentWrapper, Wrapper } from "./styles";
 import { FaRegEdit } from "react-icons/fa";
+import { GoPrimitiveDot } from "react-icons/go";
 import { useState } from "react";
 import FiltersSection from "./Filters";
+import { colors } from "@/styles/GlobalStyles";
 
 const SolutionsPanel: React.FC = () => {
   const [opened, setOpened] = useState(false);
@@ -19,7 +21,7 @@ const SolutionsPanel: React.FC = () => {
       problemTitle: "Error-2",
       solutionTitle: "teste",
       dateUpdated: "2020",
-      hasSolution: true,
+      hasSolution: false,
     },
   ];
 
@@ -37,6 +39,13 @@ const SolutionsPanel: React.FC = () => {
       <td>{element.problemTitle}</td>
       <td>{element.solutionTitle}</td>
       <td>{element.dateUpdated}</td>
+      <td>
+        {element.hasSolution ? (
+          <GoPrimitiveDot size={24} color={colors.mantineTeal} />
+        ) : (
+          <GoPrimitiveDot size={24} color={colors.mantineRed} />
+        )}
+      </td>
     </tr>
   ));
 
@@ -57,6 +66,7 @@ const SolutionsPanel: React.FC = () => {
                   <th>Problema</th>
                   <th>Solução</th>
                   <th>Atualizado em</th>
+                  <th>Solução</th>
                 </tr>
               </thead>
               <tbody>{rows}</tbody>
