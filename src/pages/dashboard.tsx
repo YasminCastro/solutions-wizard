@@ -4,8 +4,8 @@ import TopBar from "@/components/Pages/Dashboard/TopBar";
 import { PageContainer, PageWrapper } from "@/styles/Page";
 import SolutionsPanel from "@/components/Pages/Dashboard/SolutionsPanel";
 import { GetServerSideProps, NextPage } from "next";
-import prisma from "@/lib/prisma";
-import { Software } from "@prisma/client";
+// import prisma from "@/lib/prisma";
+import { PrismaClient, Software } from "@prisma/client";
 
 interface DasboardInterface {
   softwares: Software[];
@@ -30,10 +30,10 @@ const Dashboard: NextPage<DasboardInterface> = ({ softwares }) => {
 export default Dashboard;
 
 export const getServerSideProps: GetServerSideProps = async () => {
+  const prisma = new PrismaClient();
   const softwares = await prisma.software.findMany();
 
   return {
     props: { softwares },
-    revalidate: 10,
   };
 };
