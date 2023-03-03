@@ -15,6 +15,8 @@ import {
   Wrapper,
 } from "./styles";
 import { colors } from "@/styles/GlobalStyles";
+import router from "next/router";
+import slugify from "@/util/slugify";
 
 const LeftPanel: React.FC<{ softwares?: SoftwareTypes[] }> = ({
   softwares,
@@ -46,7 +48,11 @@ const LeftPanel: React.FC<{ softwares?: SoftwareTypes[] }> = ({
                   key={item.name}
                   variant="subtle"
                   label={item.name}
-                  onClick={() => setActive(index)}
+                  onClick={() => {
+                    setActive(index);
+
+                    router.push({ query: { software: slugify(item.name) } });
+                  }}
                   icon={<RxDot />}
                 />
               </Software>
