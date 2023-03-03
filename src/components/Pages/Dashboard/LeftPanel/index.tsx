@@ -30,8 +30,16 @@ const LeftPanel: React.FC = () => {
         Solutions Wizard
       </Title>
       <OptionsButtons>
-        <NavLink label="Nova solução" icon={<FaRegLightbulb />} />
-        <NavLink label="Novo software" icon={<AiOutlineAppstoreAdd />} />
+        <NavLink
+          key="solution"
+          label="Nova solução"
+          icon={<FaRegLightbulb />}
+        />
+        <NavLink
+          key="software"
+          label="Novo software"
+          icon={<AiOutlineAppstoreAdd />}
+        />
       </OptionsButtons>
 
       <SoftwaresOptions>
