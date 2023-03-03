@@ -4,8 +4,10 @@ import { useState } from "react";
 import { BsLockFill } from "react-icons/bs";
 import { FaHatWizard } from "react-icons/fa";
 import { colors } from "@/styles/GlobalStyles";
+import { useRouter } from "next/router";
 
 const RightSection: React.FC = () => {
+  const router = useRouter();
   const [value, setValue] = useState("");
 
   return (
@@ -26,7 +28,14 @@ const RightSection: React.FC = () => {
               setValue(event.currentTarget.value);
             }}
           />
-          <Button variant="light">Entrar</Button>
+          <Button
+            onClick={() => {
+              router.push("/dashboard");
+            }}
+            variant="light"
+          >
+            Entrar
+          </Button>
         </Login>
         <p>
           Developer by{" "}

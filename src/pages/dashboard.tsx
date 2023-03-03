@@ -7,6 +7,7 @@ import { GetServerSideProps, NextPage } from "next";
 // import prisma from "@/lib/prisma";
 import { PrismaClient, Software } from "@prisma/client";
 import { env } from "process";
+import prisma from "@/lib/prisma";
 
 interface DasboardInterface {
   softwares: Software[];
@@ -31,8 +32,6 @@ const Dashboard: NextPage<DasboardInterface> = ({ softwares }) => {
 export default Dashboard;
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const prisma = new PrismaClient();
-  console.log("PRISMA", prisma);
   const softwares = await prisma.software.findMany();
 
   return {
