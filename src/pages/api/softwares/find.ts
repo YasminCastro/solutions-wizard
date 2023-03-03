@@ -8,7 +8,11 @@ export default async function handler(
   try {
     const prisma = new PrismaClient();
 
+    console.log("prisma", prisma);
+
     const softwares = await prisma.software.findMany();
+
+    console.log("softwares", softwares);
 
     res.status(200).json(softwares);
   } catch (error: any) {
