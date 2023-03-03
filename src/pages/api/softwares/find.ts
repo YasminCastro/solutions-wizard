@@ -1,13 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import PrismaInstance from "@/backend/PrismaInstance";
-import { Software } from "@prisma/client";
+import { PrismaClient, Software } from "@prisma/client";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Software[]>
 ) {
   try {
-    const prisma = await PrismaInstance.getInstance();
+    const prisma = new PrismaClient();
 
     const softwares = await prisma.software.findMany();
 
