@@ -1,8 +1,11 @@
+import { LEFT_PANEL_WIDTH } from "@/config";
 import { colors } from "@/styles/GlobalStyles";
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  width: 250px;
+  width: ${LEFT_PANEL_WIDTH}px;
+  position: fixed;
+  height: 100%;
 `;
 
 export const Title = styled.p`
