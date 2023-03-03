@@ -16,24 +16,8 @@ import {
 } from "./styles";
 import { colors } from "@/styles/GlobalStyles";
 
-const LeftPanel: React.FC = () => {
+const LeftPanel: React.FC<{ softwares: SoftwareTypes[] }> = ({ softwares }) => {
   const [active, setActive] = useState(0);
-  const [softwares, setSoftwares] = useState<SoftwareTypes[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const { data } = await axios.get<SoftwareTypes[]>(
-          `/api/softwares/find`
-        );
-        setSoftwares(data);
-      } catch (error) {
-        console.error;
-      }
-    };
-
-    fetchData();
-  }, []);
 
   return (
     <Wrapper>

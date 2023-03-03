@@ -3,12 +3,19 @@ import SEO from "@/components/Global/SEO";
 import TopBar from "@/components/Pages/Dashboard/TopBar";
 import { PageContainer, PageWrapper } from "@/styles/Page";
 import SolutionsPanel from "@/components/Pages/Dashboard/SolutionsPanel";
+import { GetStaticProps, NextPage } from "next";
+import prisma from "@/lib/prisma";
+import { Software } from "@prisma/client";
 
-export default function Dashboard() {
+interface DasboardInterface {
+  softwares: Software[];
+}
+
+const Dashboard: NextPage<DasboardInterface> = ({ softwares }) => {
   return (
     <>
       <SEO title="Dashboard" />
-      <Layout>
+      <Layout softwares={softwares}>
         <PageWrapper>
           <PageContainer>
             <TopBar />
@@ -18,4 +25,15 @@ export default function Dashboard() {
       </Layout>
     </>
   );
-}
+};
+
+export default Dashboard;
+
+export const getStaticProps: GetStaticProps = async () => {
+  const softwares = await prisma.software.findMany();
+
+  return {
+    props: { softwares },
+    revalidate: 10,
+  };
+};
