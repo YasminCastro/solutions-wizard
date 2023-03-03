@@ -1,14 +1,16 @@
 import { Container, Wrapper } from "./styles";
 import { IoLogOutOutline, IoArrowBack } from "react-icons/io5";
 import { colors } from "@/styles/GlobalStyles";
+import { useRouter } from "next/router";
 
 const TopBar: React.FC = () => {
+  const router = useRouter();
   return (
     <Wrapper>
       <Container>
         <button
           onClick={() => {
-            console.log("VOLTAR");
+            router.push({ pathname: "/dashboard", query: router.query });
           }}
         >
           <IoArrowBack color={colors.grey50} size={26} />

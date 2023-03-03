@@ -32,7 +32,7 @@ const LeftPanel: React.FC<{ softwares?: SoftwareTypes[] }> = ({
         <NavLink key="problems" label="Novo problema" icon={<AiFillBug />} />
         <NavLink
           key="software"
-          label="Novo software"
+          label="Software"
           icon={<AiOutlineAppstoreAdd />}
           onClick={() => {
             router.push({ pathname: "/software", query: router.query });

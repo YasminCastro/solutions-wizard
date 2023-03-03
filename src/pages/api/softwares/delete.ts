@@ -1,22 +1,19 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from "@prisma/client";
-import moment from "moment";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   try {
-    const { name } = req.body;
+    const { id } = req.body;
     const prisma = new PrismaClient();
 
-    const createdAt = moment().toISOString();
-
-    const created = await prisma.software.create({
-      data: { name, createdAt },
+    const deleted = await prisma.software.delete({
+      where: { id },
     });
 
-    res.status(200).json(created);
+    res.status(200).json(deleted);
   } catch (error: any) {
     console.log(error);
     res.status(500).json(error.message);

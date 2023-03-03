@@ -1,6 +1,6 @@
 import Layout from "@/components/Global/Layout";
 import SEO from "@/components/Global/SEO";
-import TopBar from "@/components/Global/TopBarSearch";
+import TopBarSearch from "@/components/Global/TopBarSearch";
 import { PageContainer, PageWrapper } from "@/styles/Page";
 import SolutionsPanel from "@/components/Pages/Dashboard/SolutionsPanel";
 import { GetServerSideProps, NextPage } from "next";
@@ -18,7 +18,7 @@ const Dashboard: NextPage<DasboardInterface> = ({ softwares }) => {
       <Layout softwares={softwares}>
         <PageWrapper>
           <PageContainer>
-            <TopBar />
+            <TopBarSearch />
             <SolutionsPanel />
           </PageContainer>
         </PageWrapper>
