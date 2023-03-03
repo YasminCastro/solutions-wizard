@@ -44,8 +44,10 @@ const SolutionsPanel: React.FC = () => {
     <Wrapper>
       <Container>
         <ContentWrapper>
-          <h1>VEEAM</h1>
+          <h1>Veeam</h1>
+          <hr />
           <FiltersSection />
+          <hr />
 
           <TableContainer>
             <Table>

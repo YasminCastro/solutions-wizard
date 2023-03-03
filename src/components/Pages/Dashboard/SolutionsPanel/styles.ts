@@ -23,7 +23,18 @@ export const ContentWrapper = styled.section`
   border-radius: 14px;
 
   background: ${colors.white};
-  /* height: 100%; */
+
+  h1 {
+    margin: 8px 24px;
+    font-weight: 700;
+    font-size: 24px;
+  }
+
+  hr {
+    height: 1px;
+    background-color: ${colors.lightGrey};
+    border: none;
+  }
 `;
 
 export const TableContainer = styled.div`
