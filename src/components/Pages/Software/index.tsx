@@ -1,12 +1,19 @@
-import { Container, ContentWrapper, TableContainer, Wrapper } from "./styles";
+import { useState } from "react";
+import axios from "axios";
+import moment from "moment";
 import { useForm } from "@mantine/form";
 import { Button, Table, TextInput } from "@mantine/core";
 import { FaTrash } from "react-icons/fa";
-import axios from "axios";
+
 import { useSoftwares } from "@/providers/softwares";
+import { Container, ContentWrapper, TableContainer, Wrapper } from "./styles";
+import { colors } from "@/styles/GlobalStyles";
 
 const SoftwareForm: React.FC = () => {
-  const { softwares } = useSoftwares();
+  const { softwares, setRefreshSoftwares, setSoftwares } = useSoftwares();
+  const [createSoftwareLoading, setCreateSoftwareLoading] = useState(false);
+  const [deleteSoftwareLoading, setDeleteSoftwareLoading] = useState(false);
+
   const form = useForm({
     initialValues: {
       name: "",
@@ -20,33 +27,50 @@ const SoftwareForm: React.FC = () => {
   const rows = softwares.map((element) => (
     <tr key={element.id}>
       <td>{element.name}</td>
-      <td>{element.createdAt}</td>
+      <td>{moment(element.createdAt).format("DD/MM/YYYY")}</td>
 
       <td>
-        <button onClick={() => handleDelete(element.id)}>
-          <FaTrash size={18} />
-        </button>
+        <Button
+          variant="subtle"
+          onClick={() => handleDelete(element.id)}
+          disabled={deleteSoftwareLoading}
+          sx={{ "&[data-disabled]": { pointerEvents: "all" } }}
+          compact
+        >
+          <FaTrash size={18} color={colors.black} />
+        </Button>
       </td>
     </tr>
   ));
 
   const handleSubmit = async (values: { name: string }) => {
+    setCreateSoftwareLoading(true);
     try {
       await axios.post("/api/softwares/create", {
         name: values.name,
       });
+      setRefreshSoftwares(`create-${moment().format()}`);
     } catch (error) {
       console.log(error);
+    } finally {
+      setCreateSoftwareLoading(false);
     }
   };
 
   const handleDelete = async (id: number) => {
+    setDeleteSoftwareLoading(true);
     try {
+      const index = softwares.findIndex((x) => x.id === id);
+      softwares.splice(index, 1);
+      setSoftwares(softwares);
+
       await axios.post("/api/softwares/delete", {
         id,
       });
     } catch (error) {
       console.log(error);
+    } finally {
+      setDeleteSoftwareLoading(false);
     }
   };
 
@@ -60,9 +84,12 @@ const SoftwareForm: React.FC = () => {
               label="Nome"
               placeholder="Veeam"
               {...form.getInputProps("name")}
+              autoFocus
             />
 
-            <Button type="submit">Salvar</Button>
+            <Button type="submit" loading={createSoftwareLoading}>
+              Salvar
+            </Button>
           </form>
         </ContentWrapper>
         <ContentWrapper>

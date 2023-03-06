@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { PrismaClient } from "@prisma/client";
 import moment from "moment";
+import PrismaInstance from "@/lib/prisma";
 
 export default async function handler(
   req: NextApiRequest,
@@ -8,7 +8,7 @@ export default async function handler(
 ) {
   try {
     const { name } = req.body;
-    const prisma = new PrismaClient();
+    const prisma = await PrismaInstance.getInstance();
 
     const createdAt = moment().toISOString();
 

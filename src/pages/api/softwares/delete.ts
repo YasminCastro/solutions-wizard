@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { PrismaClient } from "@prisma/client";
+import PrismaInstance from "@/lib/prisma";
 
 export default async function handler(
   req: NextApiRequest,
@@ -7,7 +7,7 @@ export default async function handler(
 ) {
   try {
     const { id } = req.body;
-    const prisma = new PrismaClient();
+    const prisma = await PrismaInstance.getInstance();
 
     const deleted = await prisma.software.delete({
       where: { id },

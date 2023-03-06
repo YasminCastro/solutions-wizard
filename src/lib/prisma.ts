@@ -1,18 +1,32 @@
 // lib/prisma.ts
 import { PrismaClient } from "@prisma/client";
 
-let prisma: PrismaClient;
+const PrismaInstance = (() => {
+  let instance: PrismaClient;
 
-if (process.env.NODE_ENV === "production") {
-  prisma = new PrismaClient();
-} else {
-  //@ts-ignore
-  if (!global.prisma) {
-    //@ts-ignore
-    global.prisma = new PrismaClient();
+  async function createInstance() {
+    try {
+      const prisma = new PrismaClient();
+
+      instance = prisma;
+    } catch (error: any) {
+      console.log("error", error);
+    }
+
+    return instance;
   }
-  //@ts-ignore
-  prisma = global.prisma;
-}
 
-export default prisma;
+  return {
+    getInstance: async function () {
+      if (!instance) {
+        const createdInstance = await createInstance();
+
+        instance = createdInstance;
+      }
+
+      return instance;
+    },
+  };
+})();
+
+export default PrismaInstance;

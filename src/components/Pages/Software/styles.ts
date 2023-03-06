@@ -31,8 +31,12 @@ export const ContentWrapper = styled.section`
   }
 
   form {
+    max-width: 500px;
+    width: 100%;
     display: flex;
     flex-direction: column;
+    gap: 10px;
+    margin: 24px;
   }
 `;
 

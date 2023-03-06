@@ -1,4 +1,3 @@
-import prisma from "@/lib/prisma";
 import { Software } from "@prisma/client";
 import axios from "axios";
 import React, {
@@ -12,6 +11,7 @@ import React, {
 
 interface IValue {
   setRefreshSoftwares: React.Dispatch<React.SetStateAction<string>>;
+  setSoftwares: React.Dispatch<React.SetStateAction<Software[]>>;
   softwares: Software[];
 }
 
@@ -26,23 +26,24 @@ export const SoftwaresProvider: React.FC<{ children?: React.ReactNode }> = ({
   const getSoftwares = useCallback(async () => {
     try {
       const { data } = await axios.get("/api/softwares/get");
-      console.log("data", data);
       setSoftwares(data);
     } catch (error) {
       console.error(error);
+    } finally {
     }
   }, []);
 
   useEffect(() => {
     getSoftwares();
-  }, [refreshSoftwares]);
+  }, [refreshSoftwares, softwares]);
 
   const value = useMemo(
     () => ({
       setRefreshSoftwares,
       softwares,
+      setSoftwares,
     }),
-    [setRefreshSoftwares, softwares]
+    [setRefreshSoftwares, softwares, setSoftwares]
   );
 
   return (
