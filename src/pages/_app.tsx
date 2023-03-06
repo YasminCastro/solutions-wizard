@@ -1,12 +1,22 @@
 import { SoftwaresProvider } from "@/providers/softwares";
-import type { AppProps } from "next/app";
+import { MantineProvider } from "@mantine/core";
+import NextApp, { AppContext, AppProps } from "next/app";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <SoftwaresProvider>
-        <Component {...pageProps} />
+        <MantineProvider withGlobalStyles withNormalizeCSS>
+          <Component {...pageProps} />
+        </MantineProvider>
       </SoftwaresProvider>
     </>
   );
 }
+
+App.getInitialProps = async (appContext: AppContext) => {
+  const appProps = await NextApp.getInitialProps(appContext);
+  return {
+    ...appProps,
+  };
+};
