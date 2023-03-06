@@ -4,7 +4,7 @@ import { BsSearch } from "react-icons/bs";
 import { IoLogOutOutline } from "react-icons/io5";
 import { colors } from "@/styles/GlobalStyles";
 
-const TopBarSearch: React.FC = () => {
+const TopBarSearchSoftwares: React.FC = () => {
   return (
     <Wrapper>
       <Container>
@@ -21,4 +21,4 @@ const TopBarSearch: React.FC = () => {
   );
 };
 
-export default TopBarSearch;
+export default TopBarSearchSoftwares;

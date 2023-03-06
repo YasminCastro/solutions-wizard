@@ -26,6 +26,9 @@ export const SoftwaresProvider: React.FC<{ children?: React.ReactNode }> = ({
   const getSoftwares = useCallback(async () => {
     try {
       const { data } = await axios.get("/api/softwares/get");
+
+      data.sort(compare);
+
       setSoftwares(data);
     } catch (error) {
       console.error(error);
@@ -54,3 +57,13 @@ export const SoftwaresProvider: React.FC<{ children?: React.ReactNode }> = ({
 };
 
 export const useSoftwares = () => useContext(SoftwaresContext);
+
+function compare(a: any, b: any) {
+  if (a.name < b.name) {
+    return -1;
+  }
+  if (a.name > b.name) {
+    return 1;
+  }
+  return 0;
+}
