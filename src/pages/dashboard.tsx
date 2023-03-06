@@ -3,19 +3,13 @@ import SEO from "@/components/Global/SEO";
 import TopBarSearch from "@/components/Global/TopBarSearch";
 import { PageContainer, PageWrapper } from "@/styles/Page";
 import SolutionsPanel from "@/components/Pages/Dashboard/SolutionsPanel";
-import { GetServerSideProps, NextPage } from "next";
-import { Software } from "@prisma/client";
-import prisma from "@/lib/prisma";
+import { NextPage } from "next";
 
-interface DasboardInterface {
-  softwares: Software[];
-}
-
-const Dashboard: NextPage<DasboardInterface> = ({ softwares }) => {
+const Dashboard: NextPage = () => {
   return (
     <>
       <SEO title="Dashboard" />
-      <Layout softwares={softwares}>
+      <Layout>
         <PageWrapper>
           <PageContainer>
             <TopBarSearch />
@@ -28,11 +22,3 @@ const Dashboard: NextPage<DasboardInterface> = ({ softwares }) => {
 };
 
 export default Dashboard;
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const softwares = await prisma.software.findMany();
-
-  return {
-    props: { softwares },
-  };
-};

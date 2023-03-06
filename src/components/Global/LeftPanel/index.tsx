@@ -1,6 +1,4 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { Software as SoftwareTypes } from "@prisma/client";
+import { useState } from "react";
 
 import { NavLink } from "@mantine/core";
 import { FaHatWizard } from "react-icons/fa";
@@ -16,11 +14,12 @@ import {
 } from "./styles";
 import { colors } from "@/styles/GlobalStyles";
 import router from "next/router";
+import { useSoftwares } from "@/providers/softwares";
 
-const LeftPanel: React.FC<{ softwares?: SoftwareTypes[] }> = ({
-  softwares,
-}) => {
+const LeftPanel: React.FC = () => {
   const [active, setActive] = useState(0);
+
+  const { softwares } = useSoftwares();
 
   return (
     <Wrapper>

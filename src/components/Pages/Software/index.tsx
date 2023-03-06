@@ -2,17 +2,11 @@ import { Container, ContentWrapper, TableContainer, Wrapper } from "./styles";
 import { useForm } from "@mantine/form";
 import { Button, Table, TextInput } from "@mantine/core";
 import { FaTrash } from "react-icons/fa";
-import { useEffect } from "react";
 import axios from "axios";
-import { Software } from "@prisma/client";
+import { useSoftwares } from "@/providers/softwares";
 
-interface IProps {
-  softwares: Software[];
-}
-
-const SoftwareForm: React.FC<IProps> = ({ softwares }) => {
-  useEffect(() => {}, []);
-
+const SoftwareForm: React.FC = () => {
+  const { softwares } = useSoftwares();
   const form = useForm({
     initialValues: {
       name: "",
