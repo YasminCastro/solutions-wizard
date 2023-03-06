@@ -8,7 +8,7 @@ import ProblemForm from "@/components/Pages/Problem";
 const Problem: NextPage = () => {
   return (
     <>
-      <SEO title="Problem" />
+      <SEO title="Problema" />
       <Layout>
         <PageWrapper>
           <PageContainer>
