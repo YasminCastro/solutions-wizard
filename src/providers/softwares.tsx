@@ -12,7 +12,10 @@ import React, {
 interface IValue {
   setRefreshSoftwares: React.Dispatch<React.SetStateAction<string>>;
   setSoftwares: React.Dispatch<React.SetStateAction<Software[]>>;
+  setSearchedSoftware: React.Dispatch<React.SetStateAction<string>>;
   softwares: Software[];
+  searchedSoftware: string;
+  softwaresFiltered: Software[];
 }
 
 const SoftwaresContext = createContext({} as IValue);
@@ -22,7 +25,10 @@ export const SoftwaresProvider: React.FC<{ children?: React.ReactNode }> = ({
 }) => {
   const [softwares, setSoftwares] = useState([] as Software[]);
   const [refreshSoftwares, setRefreshSoftwares] = useState("");
+  const [searchedSoftware, setSearchedSoftware] = useState("");
+  const [softwaresFiltered, setSoftwaresFiltered] = useState([] as Software[]);
 
+  //GET SOFTWARES
   const getSoftwares = useCallback(async () => {
     try {
       const { data } = await axios.get("/api/softwares/get");
@@ -40,13 +46,43 @@ export const SoftwaresProvider: React.FC<{ children?: React.ReactNode }> = ({
     getSoftwares();
   }, [refreshSoftwares, softwares]);
 
+  //FILTER SOFTWARES
+
+  useEffect(() => {
+    if (searchedSoftware) {
+      let newSoftwaresList: Software[] = [];
+
+      softwares.forEach((item) => {
+        const softwareName = item.name.toLowerCase();
+        if (softwareName.includes(searchedSoftware)) {
+          newSoftwaresList.push(item);
+        }
+      });
+
+      setSoftwaresFiltered(newSoftwaresList);
+    } else {
+      setSoftwaresFiltered(softwares);
+    }
+  }, [searchedSoftware, softwares]);
+
+  //SEND VALUES
   const value = useMemo(
     () => ({
       setRefreshSoftwares,
       softwares,
       setSoftwares,
+      searchedSoftware,
+      setSearchedSoftware,
+      softwaresFiltered,
     }),
-    [setRefreshSoftwares, softwares, setSoftwares]
+    [
+      setRefreshSoftwares,
+      softwares,
+      setSoftwares,
+      searchedSoftware,
+      setSearchedSoftware,
+      softwaresFiltered,
+    ]
   );
 
   return (

@@ -4,7 +4,7 @@ import { useSoftwares } from "@/providers/softwares";
 import { useRouter } from "next/router";
 
 const EmptySolutionsPanel: React.FC = () => {
-  const { softwares } = useSoftwares();
+  const { softwaresFiltered } = useSoftwares();
   const router = useRouter();
 
   return (
@@ -12,17 +12,20 @@ const EmptySolutionsPanel: React.FC = () => {
       <Container>
         <ContentWrapper>
           <h1>
-            {softwares ? "Selecione um software" : "Nenhum software foi criado"}
+            {softwaresFiltered
+              ? "Selecione um software"
+              : "Nenhum software foi criado"}
           </h1>
           <hr />
           <SoftwaresButtons>
-            {softwares &&
-              softwares.map((item) => {
+            {softwaresFiltered &&
+              softwaresFiltered.map((item) => {
                 return (
                   <Button
                     onClick={() => {
                       router.push({ query: { softwareId: item.id } });
                     }}
+                    key={`softwares-buttons-${item.id}`}
                   >
                     {item.name}
                   </Button>

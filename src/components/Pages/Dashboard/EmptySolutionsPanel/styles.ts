@@ -41,6 +41,12 @@ export const SoftwaresButtons = styled.div`
   margin-top: 16px;
   button {
     margin: 16px;
-    background: ${colors.purple1000};
+    background: ${colors.purple900};
+  }
+
+  .mantine-Button-root {
+    :hover {
+      background: ${colors.purple1000};
+    }
   }
 `;
