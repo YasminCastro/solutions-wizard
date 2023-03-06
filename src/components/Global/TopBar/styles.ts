@@ -11,7 +11,7 @@ export const Container = styled.div`
 
   justify-content: space-between;
 
-  width: calc(100% - 290px);
+  width: calc(100% - 250px);
   height: 57px;
 
   position: fixed;
