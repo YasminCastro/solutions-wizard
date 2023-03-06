@@ -5,19 +5,67 @@ import {
   AiOutlineCloudUpload,
 } from "react-icons/ai";
 
-import { Dropzone, DropzoneProps } from "@mantine/dropzone";
+import { Dropzone, DropzoneProps, FileWithPath } from "@mantine/dropzone";
 import { colors } from "@/styles/GlobalStyles";
+import { useImages } from "@/providers/images";
+import { useState } from "react";
+import axios from "axios";
 
 export function DropzoneComponent(props: Partial<DropzoneProps>) {
-  const handleUpload = (files: any) => {
-    console.log("accepted files");
+  const { setFiles } = useImages();
+  const [errorMessage, setErrorMessage] = useState("");
+  const [imagesOk, setImagesOk] = useState(false);
+
+  const handleUpload = async (files: FileWithPath[]) => {
+    setErrorMessage("");
+    // setFiles(files);
+    setImagesOk(true);
+
+    const formData = new FormData();
+    formData.append("file", files[0], files[0].name);
+
+    const { data } = await axios.post("/api/images/upload", formData, {
+      headers: {
+        "Content-Type": `multipart/form-data;`,
+      },
+      timeout: 30000,
+    });
+  };
+
+  const handleErrors = (files: any) => {
+    setImagesOk(false);
+    const fileName = files[0].file.name;
+    const fileError = files[0].errors[0].message;
+    setErrorMessage(`${fileName} - ${fileError}`);
+  };
+
+  const MessageDropzone = () => {
+    if (errorMessage) {
+      return (
+        <Text size="sm" color={colors.mantineRed} inline mt={7}>
+          {errorMessage}
+        </Text>
+      );
+    } else if (imagesOk) {
+      return (
+        <Text size="sm" color={colors.mantineTeal} inline mt={7}>
+          Imagens carregadas com sucesso!
+        </Text>
+      );
+    } else {
+      return (
+        <Text size="sm" color="dimmed" inline mt={7}>
+          As imagens não devem passar de 1mb
+        </Text>
+      );
+    }
   };
 
   return (
     <Dropzone
       onDrop={handleUpload}
-      onReject={(files) => console.log("rejected files", files)}
-      maxSize={2 * 1024 * 1024}
+      onReject={handleErrors}
+      maxSize={1024 * 1024}
       accept={{ "image/*": [] }}
       {...props}
     >
@@ -29,6 +77,7 @@ export function DropzoneComponent(props: Partial<DropzoneProps>) {
         <Dropzone.Accept>
           <AiOutlineUpload size="3.2rem" color={colors.mantineTeal} />
         </Dropzone.Accept>
+
         <Dropzone.Reject>
           <AiFillAlert size="3.2rem" color={colors.mantineRed} />
         </Dropzone.Reject>
@@ -40,9 +89,8 @@ export function DropzoneComponent(props: Partial<DropzoneProps>) {
           <Text size="xl" inline>
             Arraste as imagens para fazer upload
           </Text>
-          <Text size="sm" color="dimmed" inline mt={7}>
-            As imagens não devem passar de 2mb
-          </Text>
+
+          {<MessageDropzone />}
         </div>
       </Group>
     </Dropzone>

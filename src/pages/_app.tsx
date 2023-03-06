@@ -1,3 +1,4 @@
+import { ImagesProvider } from "@/providers/images";
 import { SoftwaresProvider } from "@/providers/softwares";
 import { MantineProvider } from "@mantine/core";
 import NextApp, { AppContext, AppProps } from "next/app";
@@ -7,7 +8,9 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <SoftwaresProvider>
         <MantineProvider withGlobalStyles withNormalizeCSS>
-          <Component {...pageProps} />
+          <ImagesProvider>
+            <Component {...pageProps} />
+          </ImagesProvider>
         </MantineProvider>
       </SoftwaresProvider>
     </>
