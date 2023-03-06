@@ -1,22 +1,18 @@
 import { useReducer, useState } from "react";
-import axios from "axios";
-import moment from "moment";
 import { useForm } from "@mantine/form";
 import {
   Button,
   MultiSelect,
   Select,
-  Table,
   Textarea,
   TextInput,
 } from "@mantine/core";
-import { FaTrash } from "react-icons/fa";
 
 import { useSoftwares } from "@/providers/softwares";
 import { INITIAL_STATE_PROBLEM, problemReducer } from "./problemReducer";
 
-import { Container, ContentWrapper, TableContainer, Wrapper } from "./styles";
-import { colors } from "@/styles/GlobalStyles";
+import { Container, ContentWrapper, SelectBlocks, Wrapper } from "./styles";
+import { DropzoneComponent } from "@/components/Global/Dropzone";
 
 interface SelectData {
   label: string;
@@ -43,7 +39,6 @@ const ProblemForm: React.FC = () => {
       title: "",
       description: "",
       tags: [],
-      imagesUrl: [],
       softwareId: "",
     },
 
@@ -52,6 +47,8 @@ const ProblemForm: React.FC = () => {
         value.length > 1 ? null : "Título não pode ser vazio.",
       description: (value) =>
         value.length > 1 ? null : "Descrição não pode estar vazia.",
+      softwareId: (value) =>
+        value.length > 1 ? null : "Você deve escolher um software.",
     },
   });
 
@@ -87,29 +84,39 @@ const ProblemForm: React.FC = () => {
               {...form.getInputProps("description")}
             />
 
-            <Select
-              label="Software"
-              placeholder="Escolha..."
-              withAsterisk
-              data={softwareSelect}
-              {...form.getInputProps("softwareId")}
-            />
+            <div className="block-1">
+              <SelectBlocks>
+                <Select
+                  label="Software"
+                  placeholder="Escolha..."
+                  withAsterisk
+                  data={softwareSelect}
+                  {...form.getInputProps("softwareId")}
+                  className="softwares"
+                />
+                <MultiSelect
+                  label="Tags"
+                  data={multiselectData}
+                  placeholder="Crie suas Tags"
+                  searchable
+                  creatable
+                  getCreateLabel={(query) => `+ Create ${query}`}
+                  onCreate={(query) => {
+                    const item = { value: query, label: query };
+                    setMultiselectData((current) => [...current, item]);
+                    return item;
+                  }}
+                  className="tags"
+                />
+              </SelectBlocks>
+              <DropzoneComponent />
+            </div>
 
-            <MultiSelect
-              label="Tags"
-              data={multiselectData}
-              placeholder="Crie suas Tags"
-              searchable
-              creatable
-              getCreateLabel={(query) => `+ Create ${query}`}
-              onCreate={(query) => {
-                const item = { value: query, label: query };
-                setMultiselectData((current) => [...current, item]);
-                return item;
-              }}
-            />
-
-            <Button type="submit" loading={state.createSoftwareLoading}>
+            <Button
+              className="save-button"
+              type="submit"
+              loading={state.createSoftwareLoading}
+            >
               Salvar
             </Button>
           </form>

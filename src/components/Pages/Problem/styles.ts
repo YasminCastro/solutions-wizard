@@ -31,16 +31,43 @@ export const ContentWrapper = styled.section`
   }
 
   form {
-    max-width: 500px;
-    width: 100%;
+    width: 90%;
     display: flex;
     flex-direction: column;
     gap: 10px;
     margin: 24px;
+
+    .save-button {
+      margin-top: 16px;
+      background: ${colors.purple900};
+    }
+
+    .mantine-Button-root {
+      :hover {
+        background: ${colors.purple1000};
+      }
+    }
+  }
+
+  .block-1 {
+    display: flex;
+    justify-content: space-between;
+    gap: 32px;
   }
 `;
 
-export const TableContainer = styled.div`
-  margin-top: 24px;
-  overflow-y: auto;
+export const SelectBlocks = styled.div`
+  display: flex;
+  gap: 32px;
+
+  width: 70%;
+
+  .softwares {
+    max-width: 250px;
+    width: 100%;
+  }
+
+  .tags {
+    width: 100%;
+  }
 `;
