@@ -11,7 +11,6 @@ import React, {
 
 interface IValue {
   setRefreshSoftwares: React.Dispatch<React.SetStateAction<string>>;
-  setSoftwares: React.Dispatch<React.SetStateAction<Software[]>>;
   setSearchedSoftware: React.Dispatch<React.SetStateAction<string>>;
   softwares: Software[];
   searchedSoftware: string;
@@ -44,7 +43,7 @@ export const SoftwaresProvider: React.FC<{ children?: React.ReactNode }> = ({
 
   useEffect(() => {
     getSoftwares();
-  }, []);
+  }, [refreshSoftwares]);
 
   //FILTER SOFTWARES
 
@@ -70,7 +69,6 @@ export const SoftwaresProvider: React.FC<{ children?: React.ReactNode }> = ({
     () => ({
       setRefreshSoftwares,
       softwares,
-      setSoftwares,
       searchedSoftware,
       setSearchedSoftware,
       softwaresFiltered,
@@ -78,7 +76,6 @@ export const SoftwaresProvider: React.FC<{ children?: React.ReactNode }> = ({
     [
       setRefreshSoftwares,
       softwares,
-      setSoftwares,
       searchedSoftware,
       setSearchedSoftware,
       softwaresFiltered,

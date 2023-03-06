@@ -1,9 +1,9 @@
-export const INITIAL_STATE_SOFTWARES = {
+export const INITIAL_STATE_PROBLEM = {
   createSoftwareLoading: false,
   deleteSoftwareLoading: false,
 };
 
-export const softwareReducer = (state: any, action: any) => {
+export const problemReducer = (state: any, action: any) => {
   switch (action.type) {
     case "SET_SUBMIT_LOADING":
       return {

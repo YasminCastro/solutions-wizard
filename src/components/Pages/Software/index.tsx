@@ -12,7 +12,7 @@ import { Container, ContentWrapper, TableContainer, Wrapper } from "./styles";
 import { colors } from "@/styles/GlobalStyles";
 
 const SoftwareForm: React.FC = () => {
-  const { softwares, setRefreshSoftwares, setSoftwares } = useSoftwares();
+  const { softwares, setRefreshSoftwares } = useSoftwares();
   const [state, dispatch] = useReducer(
     softwareReducer,
     INITIAL_STATE_SOFTWARES
@@ -67,13 +67,11 @@ const SoftwareForm: React.FC = () => {
     dispatch({ type: "SET_DELETE_LOADING", payload: true });
 
     try {
-      const index = softwares.findIndex((x) => x.id === id);
-      softwares.splice(index, 1);
-      setSoftwares(softwares);
-
       await axios.post("/api/softwares/delete", {
         id,
       });
+
+      setRefreshSoftwares(`delete-${moment().format()}`);
     } catch (error) {
       console.log(error);
     } finally {
