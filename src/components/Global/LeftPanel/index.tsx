@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import { NavLink } from "@mantine/core";
 import { FaHatWizard } from "react-icons/fa";
 import { AiOutlineAppstoreAdd, AiFillBug } from "react-icons/ai";
@@ -13,11 +11,11 @@ import {
   Wrapper,
 } from "./styles";
 import { colors } from "@/styles/GlobalStyles";
-import router from "next/router";
+import router, { useRouter } from "next/router";
 import { useSoftwares } from "@/providers/softwares";
 
 const LeftPanel: React.FC = () => {
-  const [active, setActive] = useState(0);
+  const { query } = useRouter();
 
   const { softwares } = useSoftwares();
 
@@ -41,17 +39,17 @@ const LeftPanel: React.FC = () => {
 
       <SoftwaresOptions>
         {softwares &&
-          softwares.map((item, index) => {
+          softwares.map((item) => {
             return (
-              //@ts-ignore
-              <Software key={item.name} active={index === active}>
+              <Software
+                key={item.name}
+                active={item.id.toString() === String(query.softwareId)}
+              >
                 <NavLink
                   key={item.name}
                   variant="subtle"
                   label={item.name}
                   onClick={() => {
-                    setActive(index);
-
                     router.push({ query: { softwareId: item.id } });
                   }}
                   icon={<RxDot />}

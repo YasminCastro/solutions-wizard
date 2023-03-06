@@ -73,7 +73,7 @@ export const SoftwaresOptions = styled.div`
   }
 `;
 
-export const Software = styled.div<{ active: true }>`
+export const Software = styled.div<{ active: boolean }>`
   .mantine-NavLink-root {
     color: ${(props) => (props.active ? colors.purple800 : colors.grey50)};
   }
