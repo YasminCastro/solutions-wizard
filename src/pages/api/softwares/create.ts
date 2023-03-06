@@ -18,7 +18,14 @@ export default async function handler(
 
     res.status(200).json(created);
   } catch (error: any) {
-    console.log(error);
-    res.status(500).json(error.message);
+    if (error.message.includes("Unique constraint failed on the fields")) {
+      res.status(200).json({ message: "Nome deve ser unico." });
+    } else {
+      console.log(error.message);
+      res.status(200).json({
+        message:
+          "Erro interno, tente novamente mais tarde ou entre em contato com suporte.",
+      });
+    }
   }
 }

@@ -24,7 +24,7 @@ const SoftwareForm: React.FC = () => {
     },
 
     validate: {
-      name: (value) => (value.length > 2 ? null : "Nome inválido"),
+      name: (value) => (value.length > 1 ? null : "Nome não pode ser vazio."),
     },
   });
 
@@ -50,16 +50,17 @@ const SoftwareForm: React.FC = () => {
   const handleSubmit = async (values: { name: string }) => {
     dispatch({ type: "SET_SUBMIT_LOADING", payload: true });
 
-    try {
-      await axios.post("/api/softwares/create", {
-        name: values.name,
-      });
+    const { data: createSoftware } = await axios.post("/api/softwares/create", {
+      name: values.name,
+    });
+
+    if (createSoftware.message) {
+      form.setErrors({ name: createSoftware.message });
+    } else {
       setRefreshSoftwares(`create-${moment().format()}`);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      dispatch({ type: "SET_SUBMIT_LOADING", payload: false });
     }
+
+    dispatch({ type: "SET_SUBMIT_LOADING", payload: false });
   };
 
   const handleDelete = async (id: number) => {
