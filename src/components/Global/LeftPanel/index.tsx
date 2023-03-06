@@ -34,7 +34,7 @@ const LeftPanel: React.FC = () => {
           label="Software"
           icon={<AiOutlineAppstoreAdd />}
           onClick={() => {
-            router.push({ pathname: "/software", query: router.query });
+            router.push({ pathname: "/software" });
           }}
         />
       </OptionsButtons>
