@@ -11,7 +11,9 @@ const EmptySolutionsPanel: React.FC = () => {
     <Wrapper>
       <Container>
         <ContentWrapper>
-          <h1>Selecione o software desejado</h1>
+          <h1>
+            {softwares ? "Selecione um software" : "Nenhum software foi criado"}
+          </h1>
           <hr />
           <SoftwaresButtons>
             {softwares &&
