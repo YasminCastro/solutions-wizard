@@ -8,17 +8,32 @@ datasource db {
 }
 
 model Software {
-  id        Int    @id @default(autoincrement())
-  name      String @unique
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
   createdAt String
+  Problem   Problem[]
 }
 
 model Problem {
-  id   Int    @id @default(autoincrement())
-  name String
+  id          Int        @id @default(autoincrement())
+  title       String     @unique
+  description String
+  tags        String[]
+  imagesUrl   String[]
+  software    Software   @relation(fields: [softwareId], references: [id])
+  softwareId  Int
+  Solution    Solution[]
+  createdAt   String?
+  updatedAt   String
 }
 
 model Solution {
-  id   Int    @id @default(autoincrement())
-  name String
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  imagesUrl   String[]
+  problem     Problem  @relation(fields: [problemId], references: [id])
+  problemId   Int
+  createdAt   String?
+  updatedAt   String
 }

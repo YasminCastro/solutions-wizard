@@ -26,7 +26,14 @@ const LeftPanel: React.FC = () => {
         Solutions Wizard
       </Title>
       <OptionsButtons>
-        <NavLink key="problems" label="Novo problema" icon={<AiFillBug />} />
+        <NavLink
+          key="problems"
+          label="Novo problema"
+          icon={<AiFillBug />}
+          onClick={() => {
+            router.push({ pathname: "/problem" });
+          }}
+        />
         <NavLink
           key="software"
           label="Software"
