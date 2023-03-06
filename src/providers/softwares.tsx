@@ -44,7 +44,7 @@ export const SoftwaresProvider: React.FC<{ children?: React.ReactNode }> = ({
 
   useEffect(() => {
     getSoftwares();
-  }, [refreshSoftwares, softwares]);
+  }, []);
 
   //FILTER SOFTWARES
 
