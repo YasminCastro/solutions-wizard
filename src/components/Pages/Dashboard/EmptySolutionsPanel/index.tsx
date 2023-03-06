@@ -1,9 +1,11 @@
 import { Container, ContentWrapper, SoftwaresButtons, Wrapper } from "./styles";
 import { Button } from "@mantine/core";
 import { useSoftwares } from "@/providers/softwares";
+import { useRouter } from "next/router";
 
 const EmptySolutionsPanel: React.FC = () => {
   const { softwares } = useSoftwares();
+  const router = useRouter();
 
   return (
     <Wrapper>
@@ -14,7 +16,15 @@ const EmptySolutionsPanel: React.FC = () => {
           <SoftwaresButtons>
             {softwares &&
               softwares.map((item) => {
-                return <Button>{item.name}</Button>;
+                return (
+                  <Button
+                    onClick={() => {
+                      router.push({ query: { softwareId: item.id } });
+                    }}
+                  >
+                    {item.name}
+                  </Button>
+                );
               })}
           </SoftwaresButtons>
         </ContentWrapper>

@@ -41,5 +41,6 @@ export const SoftwaresButtons = styled.div`
   margin-top: 16px;
   button {
     margin: 16px;
+    background: ${colors.purple1000};
   }
 `;

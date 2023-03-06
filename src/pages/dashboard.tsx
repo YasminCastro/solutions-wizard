@@ -6,6 +6,7 @@ import SolutionsPanel from "@/components/Pages/Dashboard/SolutionsPanel";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import EmptySolutionsPanel from "@/components/Pages/Dashboard/EmptySolutionsPanel";
+import TopBarSearchSoftwares from "@/components/Pages/Dashboard/EmptySolutionsPanel/TopBarSearchSoftwares";
 
 const Dashboard: NextPage = () => {
   const { query } = useRouter();
@@ -15,8 +16,17 @@ const Dashboard: NextPage = () => {
       <Layout>
         <PageWrapper>
           <PageContainer>
-            <TopBarSearchProblems />
-            {query.softwareId ? <SolutionsPanel /> : <EmptySolutionsPanel />}
+            {query.softwareId ? (
+              <>
+                <TopBarSearchProblems />
+                <SolutionsPanel />
+              </>
+            ) : (
+              <>
+                <TopBarSearchSoftwares />
+                <EmptySolutionsPanel />
+              </>
+            )}
           </PageContainer>
         </PageWrapper>
       </Layout>
