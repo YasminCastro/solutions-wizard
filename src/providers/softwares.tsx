@@ -37,7 +37,6 @@ export const SoftwaresProvider: React.FC<{ children?: React.ReactNode }> = ({
       setSoftwares(data);
     } catch (error) {
       console.error(error);
-    } finally {
     }
   }, []);
 
@@ -65,6 +64,7 @@ export const SoftwaresProvider: React.FC<{ children?: React.ReactNode }> = ({
   }, [searchedSoftware, softwares]);
 
   //SEND VALUES
+
   const value = useMemo(
     () => ({
       setRefreshSoftwares,

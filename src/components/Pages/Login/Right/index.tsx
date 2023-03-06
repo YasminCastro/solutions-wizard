@@ -5,6 +5,7 @@ import { BsLockFill } from "react-icons/bs";
 import { FaHatWizard } from "react-icons/fa";
 import { colors } from "@/styles/GlobalStyles";
 import { useRouter } from "next/router";
+import { truncate } from "fs";
 
 const RightSection: React.FC = () => {
   const router = useRouter();
@@ -24,9 +25,9 @@ const RightSection: React.FC = () => {
             withAsterisk
             value={value}
             onChange={(event) => {
-              console.log(event.currentTarget.value);
               setValue(event.currentTarget.value);
             }}
+            autoComplete={value.toString()}
           />
           <Button
             onClick={() => {

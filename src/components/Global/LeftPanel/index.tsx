@@ -16,7 +16,6 @@ import { useSoftwares } from "@/providers/softwares";
 
 const LeftPanel: React.FC = () => {
   const { query } = useRouter();
-
   const { softwares } = useSoftwares();
 
   return (

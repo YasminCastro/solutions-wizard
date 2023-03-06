@@ -13,11 +13,8 @@ const Layout: React.FC<IProps> = ({ children }): JSX.Element => {
   return (
     <>
       <GlobalStyle />
-      {/* <Header /> */}
       {router.route !== "/" && <LeftPanel />}
-
       <MainContainer>{children}</MainContainer>
-      {/* <Footer /> */}
     </>
   );
 };
