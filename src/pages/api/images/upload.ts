@@ -1,38 +1,27 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import { S3Client, AbortMultipartUploadCommand } from "@aws-sdk/client-s3";
+import { AWS_CONFIG } from "@/config";
 import moment from "moment";
-import PrismaInstance from "@/lib/prisma";
-import { s3 } from "@/lib/bucket";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   try {
-    const body = req.body;
+    const { name, type } = req.body;
 
-    const formDataObj = Object.fromEntries(body.entries());
-    // const fileParams = {
-    //   Bucket: process.env.BUCKET_NAME,
-    //   Key: name,
-    //   Expires: 600,
-    //   ContentType: type,
-    //   ACL: "public-read",
-    // };
+    const fileName = `${name}-${moment().format()}`;
 
-    // const url = await s3.getSignedUrlPromise("putObject", fileParams);
+    // const command = new AbortMultipartUploadCommand({
+    //   Bucket: AWS_CONFIG.bucketName,
+    //   Key: `${name}-${moment().format()}`,
+    // });
 
-    // console.log(url);
+    // const data = await client.send(command);
 
     res.status(200).json({});
   } catch (error: any) {
-    if (error.message.includes("Unique constraint failed on the fields")) {
-      res.status(200).json({ message: "Título deve ser unico." });
-    } else {
-      console.log(error.message);
-      res.status(200).json({
-        message:
-          "Erro interno, tente novamente mais tarde ou entre em contato com suporte.",
-      });
-    }
+    console.log(error);
+    res.status(400).json({ message: error });
   }
 }

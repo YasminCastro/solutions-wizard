@@ -109,7 +109,7 @@ const ProblemForm: React.FC = () => {
                   className="tags"
                 />
               </SelectBlocks>
-              <DropzoneComponent />
+              {/* <DropzoneComponent /> */}
             </div>
 
             <Button

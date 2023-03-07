@@ -21,15 +21,24 @@ export function DropzoneComponent(props: Partial<DropzoneProps>) {
     // setFiles(files);
     setImagesOk(true);
 
-    const formData = new FormData();
-    formData.append("file", files[0], files[0].name);
+    // const formData = new FormData();
+    // formData.append("file", files[0], files[0].name);
 
-    const { data } = await axios.post("/api/images/upload", formData, {
-      headers: {
-        "Content-Type": `multipart/form-data;`,
-      },
-      timeout: 30000,
+    const { data } = await axios.post("/api/images/upload", {
+      name: files[0].name,
+      type: files[0].type,
     });
+
+    console.log("URL", data);
+
+    // const putImage = await axios.put(data.url, files[0], {
+    //   headers: {
+    //     "Content-Type": files[0].type,
+    //     "Access-Control-Allow-Origin": "*",
+    //   },
+    // });
+
+    // console.log(putImage);
   };
 
   const handleErrors = (files: any) => {
