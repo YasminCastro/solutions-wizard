@@ -13,19 +13,21 @@ export default async function handler(
     const createdAt = moment().toISOString();
     const updatedAt = moment().toISOString();
 
+    throw new Error("TESTE");
+
     const created = await prisma.problem.create({
       data: {
         title,
         description,
         tags,
         imagesUrl,
-        softwareId,
+        softwareId: parseInt(softwareId),
         createdAt,
         updatedAt,
       },
     });
 
-    res.status(200).json(created);
+    res.status(200).json({ created });
   } catch (error: any) {
     if (error.message.includes("Unique constraint failed on the fields")) {
       res.status(200).json({ message: "Título deve ser unico." });

@@ -71,3 +71,8 @@ export const SelectBlocks = styled.div`
     width: 100%;
   }
 `;
+
+export const ErrorMessage = styled.p`
+  color: ${colors.mantineRed};
+  font-size: 14px;
+`;

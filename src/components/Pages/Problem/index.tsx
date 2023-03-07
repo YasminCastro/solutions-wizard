@@ -11,8 +11,15 @@ import {
 import { useSoftwares } from "@/providers/softwares";
 import { INITIAL_STATE_PROBLEM, problemReducer } from "./problemReducer";
 
-import { Container, ContentWrapper, SelectBlocks, Wrapper } from "./styles";
+import {
+  Container,
+  ContentWrapper,
+  ErrorMessage,
+  SelectBlocks,
+  Wrapper,
+} from "./styles";
 import { DropzoneComponent } from "@/components/Global/Dropzone";
+import axios from "axios";
 
 interface SelectData {
   label: string;
@@ -53,17 +60,19 @@ const ProblemForm: React.FC = () => {
   });
 
   const handleSubmit = async (values: any) => {
-    console.log(values);
-    // dispatch({ type: "SET_SUBMIT_LOADING", payload: true });
-    // const { data: createSoftware } = await axios.post("/api/softwares/create", {
-    //   name: values.name,
-    // });
-    // if (createSoftware.message) {
-    //   form.setErrors({ name: createSoftware.message });
-    // } else {
-    //   setRefreshSoftwares(`create-${moment().format()}`);
-    // }
-    // dispatch({ type: "SET_SUBMIT_LOADING", payload: false });
+    dispatch({ type: "SET_SUBMIT_LOADING", payload: true });
+    const { data: createProblem } = await axios.post(
+      "/api/problems/create",
+      values
+    );
+
+    if (createProblem.message === "Título deve ser unico.") {
+      form.setErrors({ title: createProblem.message });
+    } else {
+      form.setErrors({ error: createProblem.message });
+    }
+
+    dispatch({ type: "SET_SUBMIT_LOADING", payload: false });
   };
 
   return (
@@ -107,6 +116,7 @@ const ProblemForm: React.FC = () => {
                     return item;
                   }}
                   className="tags"
+                  {...form.getInputProps("tags")}
                 />
               </SelectBlocks>
               {/* <DropzoneComponent /> */}
@@ -119,6 +129,10 @@ const ProblemForm: React.FC = () => {
             >
               Salvar
             </Button>
+
+            {form.errors.error && (
+              <ErrorMessage>{form.errors.error}</ErrorMessage>
+            )}
           </form>
         </ContentWrapper>
       </Container>
