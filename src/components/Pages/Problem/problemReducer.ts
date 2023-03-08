@@ -1,6 +1,6 @@
 export const INITIAL_STATE_PROBLEM = {
-  createSoftwareLoading: false,
-  deleteSoftwareLoading: false,
+  createProblemLoading: false,
+  problemCreated: false,
 };
 
 export const problemReducer = (state: any, action: any) => {
@@ -8,13 +8,13 @@ export const problemReducer = (state: any, action: any) => {
     case "SET_SUBMIT_LOADING":
       return {
         ...state,
-        createSoftwareLoading: action.payload,
+        createProblemLoading: action.payload,
       };
 
-    case "SET_DELETE_LOADING":
+    case "SET_PROBLEM_CREATED":
       return {
         ...state,
-        deleteSoftwareLoading: action.payload,
+        problemCreated: action.payload,
       };
   }
 };

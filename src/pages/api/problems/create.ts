@@ -13,8 +13,6 @@ export default async function handler(
     const createdAt = moment().toISOString();
     const updatedAt = moment().toISOString();
 
-    throw new Error("TESTE");
-
     const created = await prisma.problem.create({
       data: {
         title,

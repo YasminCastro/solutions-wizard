@@ -36,16 +36,16 @@ export const ContentWrapper = styled.section`
     flex-direction: column;
     gap: 10px;
     margin: 24px;
+  }
 
-    .save-button {
-      margin-top: 16px;
-      background: ${colors.purple900};
-    }
+  .save-button {
+    margin-top: 16px;
+    background: ${colors.purple900};
+  }
 
-    .mantine-Button-root {
-      :hover {
-        background: ${colors.purple1000};
-      }
+  .mantine-Button-root {
+    :hover {
+      background: ${colors.purple1000};
     }
   }
 

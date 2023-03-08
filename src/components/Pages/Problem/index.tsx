@@ -20,6 +20,7 @@ import {
 } from "./styles";
 import { DropzoneComponent } from "@/components/Global/Dropzone";
 import axios from "axios";
+import ButtonsModal from "./ButtonsModal";
 
 interface SelectData {
   label: string;
@@ -68,8 +69,10 @@ const ProblemForm: React.FC = () => {
 
     if (createProblem.message === "Título deve ser unico.") {
       form.setErrors({ title: createProblem.message });
-    } else {
+    } else if (createProblem.message) {
       form.setErrors({ error: createProblem.message });
+    } else {
+      dispatch({ type: "SET_PROBLEM_CREATED", payload: true });
     }
 
     dispatch({ type: "SET_SUBMIT_LOADING", payload: false });
@@ -125,7 +128,7 @@ const ProblemForm: React.FC = () => {
             <Button
               className="save-button"
               type="submit"
-              loading={state.createSoftwareLoading}
+              loading={state.createProblemLoading}
             >
               Salvar
             </Button>
@@ -134,6 +137,8 @@ const ProblemForm: React.FC = () => {
               <ErrorMessage>{form.errors.error}</ErrorMessage>
             )}
           </form>
+
+          {/* {<ButtonsModal></ButtonsModal>} */}
         </ContentWrapper>
       </Container>
     </Wrapper>
