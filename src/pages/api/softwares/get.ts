@@ -8,7 +8,9 @@ export default async function handler(
   try {
     const prisma = await PrismaInstance.getInstance();
 
-    const softwares = await prisma.software.findMany();
+    const softwares = await prisma.software.findMany({
+      orderBy: { name: "asc" },
+    });
 
     res.status(200).json(softwares);
   } catch (error: any) {

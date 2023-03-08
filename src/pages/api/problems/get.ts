@@ -16,11 +16,20 @@ export default async function handler(
 
     const prisma = await PrismaInstance.getInstance();
 
-    const problems = await prisma.problem.findMany({
-      where: { softwareId: parsedSoftwareId },
+    const softwareName = await prisma.software.findUnique({
+      where: { id: parsedSoftwareId },
     });
 
-    res.status(200).json(problems);
+    if (!softwareName) {
+      throw new Error("Software not found");
+    }
+
+    const problems = await prisma.problem.findMany({
+      where: { softwareId: parsedSoftwareId },
+      orderBy: { title: "asc" },
+    });
+
+    res.status(200).json({ problems, softwareName: softwareName.name });
   } catch (error: any) {
     console.log(error);
     res.status(500).json(error.message);

@@ -24,6 +24,23 @@ export const colors = {
   mantineRed: "#fe6b6b",
 };
 
+export const randomMantineColors = [
+  "dark",
+  "gray",
+  "red",
+  "pink",
+  "grape",
+  "violet",
+  "indigo",
+  "",
+  "cyan",
+  "teal",
+  "green",
+  "lime",
+  "yellow",
+  "orange",
+];
+
 export default createGlobalStyle`
   * {
     margin: 0;
