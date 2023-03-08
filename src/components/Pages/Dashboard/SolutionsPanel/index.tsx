@@ -2,32 +2,27 @@ import { Table } from "@mantine/core";
 import { Container, TableContainer, ContentWrapper, Wrapper } from "./styles";
 import { FaRegEdit } from "react-icons/fa";
 import { GoPrimitiveDot } from "react-icons/go";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FiltersSection from "./Filters";
 import { colors } from "@/styles/GlobalStyles";
 import { useRouter } from "next/router";
+import { useProblems } from "@/providers/problems";
+import moment from "moment";
 
 const SolutionsPanel: React.FC = () => {
   const [opened, setOpened] = useState(false);
 
-  const elements = [
-    {
-      id: 1,
-      problemTitle: "Error-1",
-      solutionTitle: "teste",
-      dateUpdated: "2020",
-      hasSolution: true,
-    },
-    {
-      id: 2,
-      problemTitle: "Error-2",
-      solutionTitle: "teste",
-      dateUpdated: "2020",
-      hasSolution: false,
-    },
-  ];
+  const { setSoftwareId, problems } = useProblems();
 
-  const rows = elements.map((element) => (
+  const { query } = useRouter();
+
+  useEffect(() => {
+    if (query.softwareId) {
+      setSoftwareId(query.softwareId.toString());
+    }
+  }, [query]);
+
+  const rows = problems.map((element) => (
     <tr key={element.id}>
       <td>
         <button
@@ -38,16 +33,15 @@ const SolutionsPanel: React.FC = () => {
           <FaRegEdit size={18} />
         </button>
       </td>
-      <td>{element.problemTitle}</td>
-      <td>{element.solutionTitle}</td>
-      <td>{element.dateUpdated}</td>
-      <td>
-        {element.hasSolution ? (
+      <td>{element.title}</td>
+      <td>{moment(element.updatedAt).format("DD/MM/YY [às] HH:mm")}</td>
+      {/* <td>
+        {element. ? (
           <GoPrimitiveDot size={24} color={colors.mantineTeal} />
         ) : (
           <GoPrimitiveDot size={24} color={colors.mantineRed} />
         )}
-      </td>
+      </td> */}
     </tr>
   ));
 
@@ -66,7 +60,6 @@ const SolutionsPanel: React.FC = () => {
                 <tr>
                   <th>Editar</th>
                   <th>Problema</th>
-                  <th>Solução</th>
                   <th>Atualizado em</th>
                   <th>Solução</th>
                 </tr>
