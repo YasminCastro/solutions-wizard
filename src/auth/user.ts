@@ -11,7 +11,7 @@ import { AUTH_CONFIG } from "@/config";
 const users = [
   {
     id: AUTH_CONFIG.LOGIN_ID,
-    createdAt: 1653670931729,
+    createdAt: 1678484681270,
     username: AUTH_CONFIG.LOGIN_USERNAME,
     hash: AUTH_CONFIG.LOGIN_HASH,
     salt: AUTH_CONFIG.LOGIN_SALT,
