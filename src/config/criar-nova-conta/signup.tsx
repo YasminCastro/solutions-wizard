@@ -1,12 +1,9 @@
 import { useState } from "react";
 import Router from "next/router";
-import { useUser } from "@/providers/user";
 import AuthLayout from "@/components/Global/Auth/AuthLayout";
 import AuthForm from "@/components/Global/Auth/AuthForm";
 
 const Signup = () => {
-  useUser({ redirectTo: "/", redirectIfFound: true });
-
   const [errorMsg, setErrorMsg] = useState("");
 
   async function handleSubmit(e: any) {

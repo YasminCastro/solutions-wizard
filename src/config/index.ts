@@ -18,8 +18,8 @@ if (!process.env.LOGIN_HASH) {
   throw new Error("LOGIN_HASH missing");
 }
 
-if (!process.env.LOGIN_SALT) {
-  throw new Error("LOGIN_SALT missing");
+if (!process.env.TOKEN_SECRET) {
+  throw new Error("TOKEN_SECRET missing");
 }
 
 export const LEFT_PANEL_WIDTH = 250;
@@ -36,4 +36,8 @@ export const AUTH_CONFIG = {
   LOGIN_USERNAME: process.env.LOGIN_USERNAME,
   LOGIN_HASH: process.env.LOGIN_HASH,
   LOGIN_SALT: process.env.LOGIN_SALT,
+  TOKEN_SECRET: process.env.TOKEN_SECRET,
+
+  JWT_KEY: "mysecret",
+  EXPIRES_IN: 604800, // 7 days in seconds
 };

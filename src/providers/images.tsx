@@ -21,7 +21,6 @@ export const ImagesProvider: React.FC<{ children?: React.ReactNode }> = ({
   const [files, setFiles] = useState([] as any);
 
   const uploadImages = useCallback(async () => {
-    console.log("UPLOAD");
     try {
       const { data } = await axios.get("/api/images/upload");
     } catch (error) {

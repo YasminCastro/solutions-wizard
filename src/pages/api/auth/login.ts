@@ -1,38 +1,56 @@
-import passport from "passport";
-import nextConnect from "next-connect";
-import { setLoginSession } from "@/auth";
-import { localStrategy } from "@/auth/password-local";
+import { findUser, validatePassword } from "@/auth/user";
+import allowCors from "@/backend/middleware/allowCors";
+import { AUTH_CONFIG } from "@/config";
+import jwt from "jsonwebtoken";
+import { NextApiRequest, NextApiResponse } from "next";
 
-const authenticate = (method: any, req: any, res: any) =>
-  new Promise((resolve, reject) => {
-    passport.authenticate(
-      method,
-      { session: false },
-      (error: any, token: any) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(token);
-        }
-      }
-    )(req, res);
-  });
+interface IBody {
+  password: string;
+}
 
-passport.use(localStrategy);
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  try {
+    const { password } = req.body as IBody;
 
-export default nextConnect()
-  .use(passport.initialize())
-  .post(async (req, res: any) => {
-    try {
-      const user: any = await authenticate("local", req, res);
-      // session is the payload to save in the token, it may contain basic info about the user
-      const session = { ...user };
-
-      await setLoginSession(res, session);
-
-      res.status(200).send({ done: true });
-    } catch (error: any) {
-      console.error(error);
-      res.status(401).send(error.message);
+    if (!password) {
+      return res.status(400).json({
+        status: "error",
+        error: "Request missing password",
+      });
     }
-  });
+
+    const userFound = findUser("glaucia");
+
+    if (!userFound) {
+      throw new Error("Usuário não encontrado!");
+    }
+
+    // check password
+
+    const isValid = validatePassword(userFound, password);
+
+    if (!isValid) {
+      throw new Error("Senha incorreta!");
+    }
+
+    const payload = {
+      userId: userFound.id,
+      username: userFound.username,
+    };
+
+    const token = jwt.sign(payload, AUTH_CONFIG.TOKEN_SECRET, {
+      expiresIn: AUTH_CONFIG.EXPIRES_IN,
+    });
+
+    return res.status(200).json({
+      success: true,
+      token,
+      user: payload,
+      expiresIn: AUTH_CONFIG.EXPIRES_IN,
+    });
+  } catch (error: any) {
+    return res.json({ success: false, message: error.message });
+  }
+};
+
+export default allowCors(handler);

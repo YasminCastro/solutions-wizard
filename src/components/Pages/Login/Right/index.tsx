@@ -5,40 +5,37 @@ import { BsLockFill } from "react-icons/bs";
 import { FaHatWizard } from "react-icons/fa";
 import { colors } from "@/styles/GlobalStyles";
 import { useRouter } from "next/router";
-import { AUTH_CONFIG } from "@/config";
+import { useCookies } from "react-cookie";
+import axios from "axios";
 
 const RightSection: React.FC = () => {
   const router = useRouter();
+  const [cookie, setCookie] = useCookies(["token"]);
 
   const [errorMsg, setErrorMsg] = useState("");
-  const [value, setValue] = useState("");
+  const [password, setPassword] = useState("");
 
   async function handleSubmit(e: any) {
     e.preventDefault();
 
-    console.log("SUBMIT");
-
     if (errorMsg) setErrorMsg("");
 
     try {
-      console.log("VALUES", AUTH_CONFIG.LOGIN_USERNAME, value);
+      const { data } = await axios.post("/api/auth/login", { password });
 
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          username: AUTH_CONFIG.LOGIN_USERNAME,
-          password: value,
-        }),
-      });
-      console.log(res);
+      console.log(data);
 
-      console.log("res", res);
-      if (res.status === 200) {
-        router.push({ pathname: "/dashboard" });
-      } else {
-        // throw new Error(res.);
+      if (!data.success) {
+        throw new Error(data.message);
       }
+
+      setCookie("token", data.token, {
+        path: "/",
+        maxAge: data.expiresIn,
+        sameSite: true,
+      });
+
+      router.push("/dashboard");
     } catch (error: any) {
       console.error("An unexpected error happened occurred:", error);
       setErrorMsg(error.message);
@@ -58,11 +55,11 @@ const RightSection: React.FC = () => {
             icon={<BsLockFill />}
             placeholder="Insira sua senha mágica..."
             withAsterisk
-            value={value}
+            value={password}
             onChange={(event) => {
-              setValue(event.currentTarget.value);
+              setPassword(event.currentTarget.value);
             }}
-            autoComplete={value.toString()}
+            autoComplete={password.toString()}
           />
           <Button onClick={handleSubmit} variant="light">
             Entrar

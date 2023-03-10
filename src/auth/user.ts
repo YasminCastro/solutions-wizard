@@ -41,13 +41,11 @@ export async function createUser({ username, password }: any) {
   return { username, createdAt: Date.now() };
 }
 
-// Here you should lookup for the user in your DB
-export async function findUser({ username }: any) {
+export const findUser = (username: string) => {
   const usernameLowerCased = username.toLowerCase();
   const usernameParsed = usernameLowerCased.trim();
-  // This is an in memory store for users, there is no data persistence without a proper DB
   return users.find((user) => user.username === usernameParsed);
-}
+};
 
 // Compare the password of an already fetched user (using `findUser`) and compare the
 // password for a potential match

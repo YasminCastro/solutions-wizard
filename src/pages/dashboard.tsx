@@ -7,41 +7,30 @@ import { NextPage } from "next";
 import { useRouter } from "next/router";
 import EmptySolutionsPanel from "@/components/Pages/Dashboard/EmptySolutionsPanel";
 import TopBarSearchSoftwares from "@/components/Pages/Dashboard/EmptySolutionsPanel/TopBarSearchSoftwares";
-import { useUser } from "@/providers/user";
-import { useEffect } from "react";
 
 const Dashboard: NextPage = () => {
   const router = useRouter();
-  const user = useUser();
-
-  useEffect(() => {
-    if (!user) {
-      router.push("/");
-    }
-  }, []);
 
   return (
     <>
       <SEO title="Dashboard" />
-      {user && (
-        <Layout>
-          <PageWrapper>
-            <PageContainer>
-              {router.query.softwareId ? (
-                <>
-                  <TopBarSearchProblems />
-                  <SolutionsPanel />
-                </>
-              ) : (
-                <>
-                  <TopBarSearchSoftwares />
-                  <EmptySolutionsPanel />
-                </>
-              )}
-            </PageContainer>
-          </PageWrapper>
-        </Layout>
-      )}
+      <Layout>
+        <PageWrapper>
+          <PageContainer>
+            {router.query.softwareId ? (
+              <>
+                <TopBarSearchProblems />
+                <SolutionsPanel />
+              </>
+            ) : (
+              <>
+                <TopBarSearchSoftwares />
+                <EmptySolutionsPanel />
+              </>
+            )}
+          </PageContainer>
+        </PageWrapper>
+      </Layout>
     </>
   );
 };

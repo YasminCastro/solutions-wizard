@@ -14,6 +14,7 @@ const nextConfig = {
     LOGIN_USERNAME: process.env.LOGIN_USERNAME,
     LOGIN_HASH: process.env.LOGIN_HASH,
     LOGIN_SALT: process.env.LOGIN_SALT,
+    TOKEN_SECRET: process.env.TOKEN_SECRET,
   },
 };
 

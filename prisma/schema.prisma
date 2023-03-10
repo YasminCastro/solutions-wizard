@@ -37,3 +37,11 @@ model Solution {
   createdAt   String?
   updatedAt   String
 }
+
+model User {
+  id             Int    @id @default(autoincrement())
+  name           String
+  hashedPassword String
+  passwordSalt   String
+  createdAt      String
+}
