@@ -1,5 +1,4 @@
 import crypto from "crypto";
-import { v4 as uuidv4 } from "uuid";
 
 import { AUTH_CONFIG } from "@/config";
 
@@ -17,29 +16,6 @@ const users = [
     salt: AUTH_CONFIG.LOGIN_SALT,
   },
 ];
-
-export async function createUser({ username, password }: any) {
-  // Here you should create the user and save the salt and hashed password (some dbs may have
-  // authentication methods that will do it for you so you don't have to worry about it):
-  const salt = crypto.randomBytes(16).toString("hex");
-  const hash = crypto
-    .pbkdf2Sync(password, salt, 1000, 64, "sha512")
-    .toString("hex");
-  const user = {
-    id: uuidv4(),
-    createdAt: Date.now(),
-    username,
-    hash,
-    salt,
-  };
-
-  // This is an in memory store for users, there is no data persistence without a proper DB
-  users.push(user);
-
-  console.log(user);
-
-  return { username, createdAt: Date.now() };
-}
 
 export const findUser = (username: string) => {
   const usernameLowerCased = username.toLowerCase();

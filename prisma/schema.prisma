@@ -39,9 +39,9 @@ model Solution {
 }
 
 model User {
-  id             Int    @id @default(autoincrement())
-  name           String
-  hashedPassword String
-  passwordSalt   String
-  createdAt      String
+  id        Int    @id @default(autoincrement())
+  username  String
+  hash      String
+  salt      String
+  createdAt String
 }
