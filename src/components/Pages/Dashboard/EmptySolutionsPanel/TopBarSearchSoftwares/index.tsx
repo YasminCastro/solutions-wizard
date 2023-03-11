@@ -1,9 +1,10 @@
 import { Container, Wrapper } from "./styles";
 import { Input } from "@mantine/core";
-import { BsSearch } from "react-icons/bs";
-import { IoLogOutOutline } from "react-icons/io5";
-import { colors } from "@/styles/GlobalStyles";
+import { IoSearch } from "react-icons/io5";
+
 import { useSoftwares } from "@/providers/softwares";
+
+import LogoutButton from "@/components/Global/LogoutButton";
 
 const TopBarSearchSoftwares: React.FC = () => {
   const { setSearchedSoftware } = useSoftwares();
@@ -13,19 +14,13 @@ const TopBarSearchSoftwares: React.FC = () => {
       <Container>
         <Input
           variant="filled"
-          icon={<BsSearch />}
+          icon={<IoSearch />}
           placeholder="Procurar..."
           onChange={(event) => {
             setSearchedSoftware(event.currentTarget.value.toLowerCase());
           }}
         />
-        <button
-          onClick={() => {
-            console.log("SAIR");
-          }}
-        >
-          <IoLogOutOutline color={colors.grey50} size={30} />
-        </button>
+        <LogoutButton />
       </Container>
     </Wrapper>
   );

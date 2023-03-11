@@ -1,10 +1,15 @@
-import { Container, Wrapper } from "./styles";
-import { IoLogOutOutline, IoArrowBack } from "react-icons/io5";
-import { colors } from "@/styles/GlobalStyles";
 import { useRouter } from "next/router";
+import { useCookies } from "react-cookie";
+import { IoArrowBack } from "react-icons/io5";
+
+import { Container, Wrapper } from "./styles";
+import { colors } from "@/styles/GlobalStyles";
+import LogoutButton from "../LogoutButton";
 
 const TopBar: React.FC = () => {
   const router = useRouter();
+  const [cookie, setCookie, removeCookie] = useCookies(["token"]);
+
   return (
     <Wrapper>
       <Container>
@@ -15,13 +20,7 @@ const TopBar: React.FC = () => {
         >
           <IoArrowBack color={colors.grey50} size={26} />
         </button>
-        <button
-          onClick={() => {
-            console.log("SAIR");
-          }}
-        >
-          <IoLogOutOutline color={colors.grey50} size={30} />
-        </button>
+        <LogoutButton />
       </Container>
     </Wrapper>
   );
