@@ -13,8 +13,6 @@ const RightSection: React.FC = () => {
   const router = useRouter();
   const [cookie, setCookie] = useCookies(["token"]);
 
-  const [errorMsg, setErrorMsg] = useState("");
-
   const form = useForm({
     initialValues: {
       username: "",
@@ -23,19 +21,15 @@ const RightSection: React.FC = () => {
 
     validate: {
       username: (value) =>
-        value.length > 1 ? null : "Nome não pode estar vazio.",
+        value.length > 1 ? null : "O campo não pode estar vazio.",
       password: (value) =>
-        value.length > 1 ? null : "Senha não pode estar vazia.",
+        value.length > 1 ? null : "O campo não pode estar vazio.",
     },
   });
 
   const handleSubmit = async (values: any) => {
-    if (errorMsg) setErrorMsg("");
-
     try {
       const { data } = await axios.post("/api/auth/login", values);
-
-      console.log(data);
 
       if (!data.success) {
         throw new Error(data.message);
@@ -49,8 +43,11 @@ const RightSection: React.FC = () => {
 
       router.push("/dashboard");
     } catch (error: any) {
-      console.error("An unexpected error happened occurred:", error);
-      setErrorMsg(error.message);
+      if (error.message === "Usuário não encontrado!") {
+        form.setErrors({ username: error.message });
+      } else {
+        form.setErrors({ password: error.message });
+      }
     }
   };
 
@@ -69,7 +66,6 @@ const RightSection: React.FC = () => {
             {...form.getInputProps("username")}
           />
           <PasswordInput
-            error={errorMsg}
             icon={<BsLockFill />}
             placeholder="Insira sua senha mágica..."
             withAsterisk

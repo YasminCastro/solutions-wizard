@@ -71,7 +71,7 @@ export const Login = styled.form`
 
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 12px;
 
   button {
     color: ${colors.purple1000};
