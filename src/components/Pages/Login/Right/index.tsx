@@ -1,17 +1,19 @@
-import { Container, Login, Title, Wrapper } from "./styles";
-import { PasswordInput, Button, Input } from "@mantine/core";
-import { useState } from "react";
-import { BsLockFill, BsPencil } from "react-icons/bs";
-import { FaHatWizard } from "react-icons/fa";
-import { colors } from "@/styles/GlobalStyles";
+import axios from "axios";
 import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
-import axios from "axios";
+import { PasswordInput, Button, Input } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import { BsLockFill, BsPencil } from "react-icons/bs";
+import { FaHatWizard } from "react-icons/fa";
+
+import { colors } from "@/styles/GlobalStyles";
+import { Container, Login, Title, Wrapper } from "./styles";
+import { useState } from "react";
 
 const RightSection: React.FC = () => {
   const router = useRouter();
   const [cookie, setCookie] = useCookies(["token"]);
+  const [loading, setLoading] = useState(false);
 
   const form = useForm({
     initialValues: {
@@ -28,6 +30,7 @@ const RightSection: React.FC = () => {
   });
 
   const handleSubmit = async (values: any) => {
+    setLoading(true);
     try {
       const { data } = await axios.post("/api/auth/login", values);
 
@@ -48,6 +51,8 @@ const RightSection: React.FC = () => {
       } else {
         form.setErrors({ password: error.message });
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -71,7 +76,12 @@ const RightSection: React.FC = () => {
             withAsterisk
             {...form.getInputProps("password")}
           />
-          <Button className="save-button" type="submit" variant="light">
+          <Button
+            className="save-button"
+            type="submit"
+            variant="light"
+            loading={loading}
+          >
             Entrar
           </Button>
         </Login>
