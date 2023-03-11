@@ -1,25 +1,34 @@
-import { findUser, validatePassword } from "@/auth/user";
 import allowCors from "@/backend/middleware/allowCors";
 import { AUTH_CONFIG } from "@/config";
+import PrismaInstance from "@/lib/prisma";
 import jwt from "jsonwebtoken";
+import crypto from "crypto";
+
 import { NextApiRequest, NextApiResponse } from "next";
 
 interface IBody {
   password: string;
+  username: string;
 }
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    const { password } = req.body as IBody;
+    const { password, username } = req.body as IBody;
 
-    if (!password) {
+    if (!password && !username) {
       return res.status(400).json({
         status: "error",
-        error: "Request missing password",
+        error: "Request missing username or password ",
       });
     }
 
-    const userFound = findUser("glaucia");
+    const prisma = await PrismaInstance.getInstance();
+
+    // check find user
+
+    const userFound = await prisma.user.findFirst({
+      where: { username },
+    });
 
     if (!userFound) {
       throw new Error("Usuário não encontrado!");
@@ -27,9 +36,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     // check password
 
-    const isValid = validatePassword(userFound, password);
+    const inputHash = crypto
+      .pbkdf2Sync(password, userFound.salt, 1000, 64, "sha512")
+      .toString("hex");
+    const passwordsMatch = userFound.hash === inputHash;
 
-    if (!isValid) {
+    if (!passwordsMatch) {
       throw new Error("Senha incorreta!");
     }
 
@@ -37,6 +49,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       userId: userFound.id,
       username: userFound.username,
     };
+
+    // create token
 
     const token = jwt.sign(payload, AUTH_CONFIG.TOKEN_SECRET, {
       expiresIn: AUTH_CONFIG.EXPIRES_IN,

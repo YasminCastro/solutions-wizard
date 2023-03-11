@@ -1,27 +1,39 @@
 import { Container, Login, Title, Wrapper } from "./styles";
-import { PasswordInput, Button } from "@mantine/core";
+import { PasswordInput, Button, Input } from "@mantine/core";
 import { useState } from "react";
-import { BsLockFill } from "react-icons/bs";
+import { BsLockFill, BsPencil } from "react-icons/bs";
 import { FaHatWizard } from "react-icons/fa";
 import { colors } from "@/styles/GlobalStyles";
 import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
 import axios from "axios";
+import { useForm } from "@mantine/form";
 
 const RightSection: React.FC = () => {
   const router = useRouter();
   const [cookie, setCookie] = useCookies(["token"]);
 
   const [errorMsg, setErrorMsg] = useState("");
-  const [password, setPassword] = useState("");
 
-  async function handleSubmit(e: any) {
-    e.preventDefault();
+  const form = useForm({
+    initialValues: {
+      username: "",
+      password: "",
+    },
 
+    validate: {
+      username: (value) =>
+        value.length > 1 ? null : "Nome não pode estar vazio.",
+      password: (value) =>
+        value.length > 1 ? null : "Senha não pode estar vazia.",
+    },
+  });
+
+  const handleSubmit = async (values: any) => {
     if (errorMsg) setErrorMsg("");
 
     try {
-      const { data } = await axios.post("/api/auth/login", { password });
+      const { data } = await axios.post("/api/auth/login", values);
 
       console.log(data);
 
@@ -40,7 +52,7 @@ const RightSection: React.FC = () => {
       console.error("An unexpected error happened occurred:", error);
       setErrorMsg(error.message);
     }
-  }
+  };
 
   return (
     <Wrapper>
@@ -49,19 +61,21 @@ const RightSection: React.FC = () => {
           <FaHatWizard size={48} color={colors.purple1000} />
           <h1>Solutions Wizard</h1>
         </Title>
-        <Login>
+        <Login onSubmit={form.onSubmit(handleSubmit)}>
+          <Input
+            icon={<BsPencil />}
+            placeholder="Usuário"
+            autoFocus
+            {...form.getInputProps("username")}
+          />
           <PasswordInput
             error={errorMsg}
             icon={<BsLockFill />}
             placeholder="Insira sua senha mágica..."
             withAsterisk
-            value={password}
-            onChange={(event) => {
-              setPassword(event.currentTarget.value);
-            }}
-            autoComplete={password.toString()}
+            {...form.getInputProps("password")}
           />
-          <Button onClick={handleSubmit} variant="light">
+          <Button className="save-button" type="submit" variant="light">
             Entrar
           </Button>
         </Login>

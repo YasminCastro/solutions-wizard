@@ -12,18 +12,22 @@ export const config = {
 export default async function middleware(req: NextRequest) {
   const token = req.cookies.get("token");
 
-  if (req.nextUrl.pathname === "/") {
-    return NextResponse.next();
-  }
+  if (req.nextUrl.pathname !== "/") {
+    if (!token) {
+      return NextResponse.redirect(new URL("/", req.url));
+    }
 
-  if (!token) {
-    return NextResponse.redirect(new URL("/", req.url));
-  }
+    const isAuth = await authMiddleware(token.value);
 
-  const isAuth = await authMiddleware(token.value);
+    if (!isAuth) {
+      req.cookies.delete("user");
+      return NextResponse.redirect(new URL("/", req.url));
+    }
+  } else if (token) {
+    const isAuth = await authMiddleware(token.value);
 
-  if (!isAuth) {
-    req.cookies.delete("user");
-    return NextResponse.redirect(new URL("/", req.url));
+    if (isAuth) {
+      return NextResponse.redirect(new URL("/dashboard", req.url));
+    }
   }
 }
